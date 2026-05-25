@@ -1155,6 +1155,266 @@
     left: 100%;
   }
 
+
+  /* ── APPLE-STYLE CINEMATIC VIDEO HERO PANEL ── */
+  .cinematic {
+    position: relative;
+    min-height: 180vh;
+    padding: 0;
+    background: #050b16;
+    overflow: clip;
+  }
+
+  .cinematic-sticky {
+    position: sticky;
+    top: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    overflow: hidden;
+    isolation: isolate;
+  }
+
+  .cinematic-video-wrap {
+    position: absolute;
+    inset: 0;
+    transform: scale(var(--cinema-scale, 0.84));
+    opacity: var(--cinema-opacity, 0.62);
+    border-radius: var(--cinema-radius, 34px);
+    overflow: hidden;
+    box-shadow: 0 45px 140px rgba(0, 0, 0, 0.55);
+    transition: border-radius 0.2s linear;
+    will-change: transform, opacity, border-radius;
+  }
+
+  .cinematic-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: saturate(1.15) contrast(1.05) brightness(0.74);
+    transform: scale(1.04);
+  }
+
+  .cinematic-sticky::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background:
+      radial-gradient(circle at 50% 42%, rgba(37,99,235,0.12), transparent 34%),
+      linear-gradient(to bottom, rgba(5,11,22,0.78), rgba(5,11,22,0.12) 42%, rgba(5,11,22,0.82));
+    pointer-events: none;
+  }
+
+  .cinematic-copy {
+    position: relative;
+    z-index: 2;
+    max-width: 900px;
+    padding: 0 5%;
+    text-align: center;
+    color: white;
+    transform: translateY(var(--cinema-text-y, 20px));
+    opacity: var(--cinema-text-opacity, 0.95);
+    will-change: transform, opacity;
+  }
+
+  .cinematic-eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--blue-light);
+    margin-bottom: 1rem;
+  }
+
+  .cinematic-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(3rem, 8vw, 8rem);
+    line-height: 0.88;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    text-transform: uppercase;
+    text-shadow: 0 20px 80px rgba(0,0,0,0.65);
+  }
+
+  .cinematic-title span {
+    display: block;
+    color: transparent;
+    -webkit-text-stroke: 1px rgba(255,255,255,0.72);
+  }
+
+  .cinematic-sub {
+    max-width: 620px;
+    margin: 1.6rem auto 0;
+    color: rgba(255,255,255,0.78);
+    font-size: 1.12rem;
+    line-height: 1.75;
+  }
+
+  .cinematic-glass {
+    position: absolute;
+    left: 50%;
+    bottom: 7%;
+    z-index: 3;
+    transform: translateX(-50%) translateY(var(--cinema-card-y, 18px));
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    padding: 0.9rem 1.2rem;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.10);
+    border: 1px solid rgba(255,255,255,0.20);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 18px 70px rgba(0,0,0,0.28);
+    color: rgba(255,255,255,0.9);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  .cinematic-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    background: var(--blue-light);
+    box-shadow: 0 0 24px var(--blue-light);
+    animation: pulse 1.5s ease-in-out infinite;
+  }
+
+  /* ── PREMIUM MOTION / DEPTH EFFECTS ── */
+  .particle-canvas {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.58;
+    mix-blend-mode: screen;
+  }
+
+  nav, section, footer, .corner-logo, .marquee-strip {
+    position: relative;
+  }
+
+  section, footer, .marquee-strip {
+    z-index: 2;
+  }
+
+  .hero {
+    perspective: 1200px;
+  }
+
+  .hero h1 {
+    background: linear-gradient(180deg, #ffffff 0%, #dbeafe 52%, #60a5fa 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    filter: drop-shadow(0 20px 50px rgba(0,0,0,0.25));
+  }
+
+  .hero h1 em {
+    background: linear-gradient(180deg, #93c5fd 0%, #2563eb 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: auto -10% -20% -10%;
+    height: 40%;
+    background: radial-gradient(ellipse at center, rgba(96,165,250,0.22), transparent 62%);
+    filter: blur(18px);
+    pointer-events: none;
+  }
+
+  .hero-badge, .stat-card, .facility-specs, .founder-card, .program-card, .contact-form {
+    transform-style: preserve-3d;
+  }
+
+  .program-card, .founder-card, .stat-card {
+    will-change: transform;
+  }
+
+  .program-card:hover, .founder-card:hover, .stat-card:hover {
+    transform: translateY(-12px) rotateX(2deg) rotateY(-2deg);
+  }
+
+  .magnetic {
+    will-change: transform;
+  }
+
+  .section-title {
+    text-wrap: balance;
+  }
+
+  .mission, .contact {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .mission::before, .contact::before {
+    content: '';
+    position: absolute;
+    width: 34rem;
+    height: 34rem;
+    border-radius: 999px;
+    background: radial-gradient(circle, rgba(96,165,250,0.16), transparent 65%);
+    right: -12rem;
+    top: -12rem;
+    filter: blur(8px);
+    pointer-events: none;
+  }
+
+  .facility-specs {
+    background:
+      linear-gradient(135deg, rgba(15,34,64,0.98), rgba(26,58,107,0.94)),
+      radial-gradient(circle at 20% 0%, rgba(96,165,250,0.22), transparent 18rem);
+    border: 1px solid rgba(96,165,250,0.25);
+    box-shadow: 0 25px 80px rgba(15,34,64,0.20);
+  }
+
+  .rendering-image, .team-photo {
+    transform-origin: center;
+    will-change: transform, filter;
+  }
+
+  .rendering-image:hover, .team-photo:hover {
+    filter: saturate(1.12) contrast(1.05);
+  }
+
+  .btn-primary, .btn-outline, .nav-cta {
+    isolation: isolate;
+  }
+
+  .btn-primary::after, .btn-outline::after {
+    content: '';
+    position: absolute;
+    inset: -40%;
+    background: conic-gradient(from 180deg, transparent, rgba(255,255,255,0.35), transparent 30%);
+    transform: translateX(-70%) rotate(0deg);
+    transition: transform 0.75s ease;
+    z-index: -1;
+  }
+
+  .btn-primary:hover::after, .btn-outline:hover::after {
+    transform: translateX(45%) rotate(30deg);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+      transition-duration: 0.01ms !important;
+    }
+    .cinematic-sticky { position: relative; }
+  }
+
+
   /* ── RESPONSIVE ── */
   @media (max-width: 900px) {
     .nav-links { display: none; }
@@ -1188,6 +1448,7 @@
 </style>
 </head>
 <body>
+<canvas class="particle-canvas" id="particleCanvas" aria-hidden="true"></canvas>
 <div class="spotlight" id="spotlight" aria-hidden="true"></div>
 
 <!-- NAV -->
@@ -1195,6 +1456,7 @@
   <a href="#" class="nav-logo">The Yard</a>
   <ul class="nav-links" id="navLinks">
     <li><a href="#mission">Mission</a></li>
+    <li><a href="#vision">Vision</a></li>
     <li><a href="#programs">Programs</a></li>
     <li><a href="#facility">Facility</a></li>
     <li><a href="#founders">Founders</a></li>
@@ -1239,6 +1501,27 @@
   <div class="hero-scroll">
     <div class="scroll-line"></div>
     <span>Scroll</span>
+  </div>
+</section>
+
+
+<!-- CINEMATIC VIDEO EXPERIENCE -->
+<section class="cinematic" id="vision">
+  <div class="cinematic-sticky">
+    <div class="cinematic-video-wrap" id="cinematicVideoWrap">
+      <video class="cinematic-video" src="aerial_pov1.mp4" autoplay muted loop playsinline preload="metadata"></video>
+    </div>
+
+    <div class="cinematic-copy" id="cinematicCopy">
+      <div class="cinematic-eyebrow">A New Home for the Game</div>
+      <h2 class="cinematic-title">See The Yard<span>Take Shape</span></h2>
+      <p class="cinematic-sub">A cinematic glimpse of the space, energy, and community we are building — small-sided soccer with a big-picture mission.</p>
+    </div>
+
+    <div class="cinematic-glass" id="cinematicGlass">
+      <span class="cinematic-dot"></span>
+      Scroll to enter the vision
+    </div>
   </div>
 </section>
 
@@ -1624,6 +1907,143 @@
       }
     });
   }
+
+  // Apple-style cinematic scroll video effect
+  const cinematic = document.querySelector('.cinematic');
+  const cinemaWrap = document.getElementById('cinematicVideoWrap');
+  const cinemaCopy = document.getElementById('cinematicCopy');
+  const cinemaGlass = document.getElementById('cinematicGlass');
+
+  function clamp(value, min, max) {
+    return Math.min(Math.max(value, min), max);
+  }
+
+  function updateCinematic() {
+    if (!cinematic || !cinemaWrap) return;
+
+    const rect = cinematic.getBoundingClientRect();
+    const travel = rect.height - window.innerHeight;
+    const progress = clamp((-rect.top) / travel, 0, 1);
+
+    const scale = 0.84 + progress * 0.24;
+    const opacity = 0.62 + progress * 0.38;
+    const radius = 34 - progress * 34;
+    const textY = 24 - progress * 54;
+    const textOpacity = clamp(1 - Math.max(progress - 0.62, 0) * 2.5, 0, 1);
+    const cardY = 18 - progress * 34;
+
+    document.documentElement.style.setProperty('--cinema-scale', scale.toFixed(3));
+    document.documentElement.style.setProperty('--cinema-opacity', opacity.toFixed(3));
+    document.documentElement.style.setProperty('--cinema-radius', radius.toFixed(1) + 'px');
+    document.documentElement.style.setProperty('--cinema-text-y', textY.toFixed(1) + 'px');
+    document.documentElement.style.setProperty('--cinema-text-opacity', textOpacity.toFixed(3));
+    document.documentElement.style.setProperty('--cinema-card-y', cardY.toFixed(1) + 'px');
+  }
+
+  window.addEventListener('scroll', updateCinematic, { passive: true });
+  window.addEventListener('resize', updateCinematic);
+  updateCinematic();
+
+  // Premium particle field
+  const canvas = document.getElementById('particleCanvas');
+  const ctx = canvas ? canvas.getContext('2d') : null;
+  let particles = [];
+  let mouse = { x: 0, y: 0 };
+
+  function resizeCanvas() {
+    if (!canvas || !ctx) return;
+    canvas.width = window.innerWidth * window.devicePixelRatio;
+    canvas.height = window.innerHeight * window.devicePixelRatio;
+    canvas.style.width = window.innerWidth + 'px';
+    canvas.style.height = window.innerHeight + 'px';
+    ctx.setTransform(window.devicePixelRatio, 0, 0, window.devicePixelRatio, 0, 0);
+
+    const count = Math.min(90, Math.floor(window.innerWidth / 18));
+    particles = Array.from({ length: count }, () => ({
+      x: Math.random() * window.innerWidth,
+      y: Math.random() * window.innerHeight,
+      vx: (Math.random() - 0.5) * 0.18,
+      vy: (Math.random() - 0.5) * 0.18,
+      r: Math.random() * 1.8 + 0.4,
+      a: Math.random() * 0.5 + 0.15
+    }));
+  }
+
+  function drawParticles() {
+    if (!canvas || !ctx) return;
+    ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
+
+    particles.forEach((p, i) => {
+      const dx = p.x - mouse.x;
+      const dy = p.y - mouse.y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      if (dist < 160) {
+        p.x += dx / 900;
+        p.y += dy / 900;
+      }
+
+      p.x += p.vx;
+      p.y += p.vy;
+
+      if (p.x < 0) p.x = window.innerWidth;
+      if (p.x > window.innerWidth) p.x = 0;
+      if (p.y < 0) p.y = window.innerHeight;
+      if (p.y > window.innerHeight) p.y = 0;
+
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(96, 165, 250, ${p.a})`;
+      ctx.fill();
+
+      for (let j = i + 1; j < particles.length; j++) {
+        const q = particles[j];
+        const lx = p.x - q.x;
+        const ly = p.y - q.y;
+        const ld = Math.sqrt(lx * lx + ly * ly);
+        if (ld < 115) {
+          ctx.beginPath();
+          ctx.moveTo(p.x, p.y);
+          ctx.lineTo(q.x, q.y);
+          ctx.strokeStyle = `rgba(96, 165, 250, ${0.08 * (1 - ld / 115)})`;
+          ctx.lineWidth = 1;
+          ctx.stroke();
+        }
+      }
+    });
+
+    requestAnimationFrame(drawParticles);
+  }
+
+  window.addEventListener('pointermove', (e) => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+  });
+
+  resizeCanvas();
+  drawParticles();
+  window.addEventListener('resize', resizeCanvas);
+
+  // Magnetic buttons/cards
+  const magneticEls = document.querySelectorAll('.btn-primary, .btn-outline, .program-card, .founder-card');
+
+  magneticEls.forEach((el) => {
+    el.classList.add('magnetic');
+
+    el.addEventListener('pointermove', (e) => {
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left - rect.width / 2;
+      const y = e.clientY - rect.top - rect.height / 2;
+      const strength = el.classList.contains('program-card') || el.classList.contains('founder-card') ? 10 : 5;
+
+      el.style.transform = `translate(${x / strength}px, ${y / strength}px)`;
+    });
+
+    el.addEventListener('pointerleave', () => {
+      el.style.transform = '';
+    });
+  });
+
 </script>
 
 </body>
