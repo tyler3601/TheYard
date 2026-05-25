@@ -344,7 +344,7 @@
   .mission-text p {
     font-size: 1.1rem;
     line-height: 1.75;
-    color: var(--gray);
+    color: var(--gray-light);
     margin-bottom: 1.25rem;
   }
 
@@ -372,7 +372,7 @@
 
   .stat-label {
     font-size: 0.95rem;
-    color: var(--gray);
+    color: var(--gray-light);
     margin-top: 0.5rem;
     line-height: 1.4;
   }
@@ -499,7 +499,7 @@
   .feature-item p {
     font-size: 0.95rem;
     line-height: 1.65;
-    color: #4a5c4d;
+    color: var(--gray-mid);
   }
 
   .facility-specs {
@@ -530,7 +530,7 @@
   }
 
   .spec-row:last-child { border-bottom: none; }
-  .spec-label { color: var(--gray); }
+  .spec-label { color: var(--gray-light); }
   .spec-value { font-weight: 600; color: var(--white); text-align: right; }
 
   /* FOUNDERS */
@@ -589,7 +589,7 @@
 
   .founder-header p {
     font-size: 0.875rem;
-    color: var(--gray);
+    color: var(--gray-light);
     margin-top: 0.2rem;
   }
 
@@ -597,7 +597,7 @@
     padding: 2rem;
     font-size: 0.975rem;
     line-height: 1.75;
-    color: var(--gray);
+    color: var(--white);
   }
 
   .founder-tag {
@@ -669,7 +669,7 @@
   .contact-info p {
     font-size: 1.05rem;
     line-height: 1.75;
-    color: var(--gray);
+    color: var(--gray-light);
     margin-top: 1.5rem;
     margin-bottom: 2rem;
   }
@@ -680,7 +680,7 @@
     gap: 0.75rem;
     margin-bottom: 1rem;
     font-size: 0.975rem;
-    color: var(--gray);
+    color: var(--gray-light);
   }
 
   .contact-detail strong {
@@ -757,7 +757,38 @@
     letter-spacing: 0.04em;
   }
 
-  /* FOOTER */\n  footer {\n    background: var(--blue-dark);\n    padding: 3rem 5%;\n    border-top: 1px solid var(--blue-light);\n    display: flex;\n    justify-content: space-between;\n    align-items: center;\n    flex-wrap: wrap;\n    gap: 1.5rem;\n  }\n\n  .footer-logo {\n    font-family: 'Barlow Condensed', sans-serif;\n    font-weight: 900;\n    font-size: 1.5rem;\n    letter-spacing: 0.04em;\n    color: var(--blue-light);\n  }\n\n  .footer-info {\n    font-size: 0.875rem;\n    color: var(--gray);\n    line-height: 1.7;\n  }\n\n  .footer-ein {\n    font-family: 'Barlow Condensed', sans-serif;\n    font-size: 0.85rem;\n    letter-spacing: 0.06em;\n    color: var(--gray-mid);\n  }
+  /* FOOTER */
+  footer {
+    background: var(--blue-dark);
+    padding: 3rem 5%;
+    border-top: 1px solid var(--blue-light);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+  }
+
+  .footer-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.5rem;
+    letter-spacing: 0.04em;
+    color: var(--blue-light);
+  }
+
+  .footer-info {
+    font-size: 0.875rem;
+    color: var(--gray-light);
+    line-height: 1.7;
+  }
+
+  .footer-ein {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.85rem;
+    letter-spacing: 0.06em;
+    color: var(--gray-mid);
+  }
 
   /* ANIMATIONS */
   @keyframes fadeUp {
