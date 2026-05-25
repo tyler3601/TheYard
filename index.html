@@ -31,8 +31,7 @@
     --shadow-blue:  rgba(37, 99, 235, 0.28);
   }
 
-  html { scroll-behavior: smooth; background:#050b16; }
-  html, body { margin:0; min-height:100%; background:#050b16; }
+  html { scroll-behavior: smooth; }
 
   html, body {
     width: 100%;
@@ -166,7 +165,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: calc(72px + 4rem) 5% 6rem;
+    padding: 8rem 5% 6rem;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -1585,31 +1584,6 @@
     section { padding: 5rem 5%; }
     .corner-logo { display: none; }
   }
-
-  /* === FINAL FIXES: remove white bar, scroll-scrub video, rendering parallax === */
-  html, body { margin:0 !important; background:#050b16 !important; overflow-x:hidden; }
-  body { min-height:100%; }
-  .hero { margin-top:0 !important; background:linear-gradient(135deg, #0f2240 0%, #1a3a6b 55%, #1e4a8a 100%) !important; }
-  .cinematic { min-height:320vh !important; background:linear-gradient(180deg, #0f2240 0%, #050b16 18%, #050b16 100%) !important; overflow:clip !important; }
-  .cinematic-sticky { height:100svh !important; min-height:100svh !important; background:#050b16 !important; }
-  .cinematic-video-wrap {
-    width:var(--cinema-width,72vw) !important;
-    height:var(--cinema-height,58vh) !important;
-    transform:translate3d(0,var(--cinema-y,36px),0) scale(var(--cinema-scale,.92)) !important;
-    background:radial-gradient(circle at 50% 45%, rgba(37,99,235,.35), transparent 42%), linear-gradient(135deg,#0f2240,#050b16) !important;
-  }
-  .cinematic-video-wrap::before {
-    content:'Add aerial_pov1.mp4 in this same folder';
-    position:absolute; inset:0; display:grid; place-items:center; text-align:center; padding:2rem;
-    color:rgba(255,255,255,.58); font-family:'Barlow Condensed',sans-serif; font-weight:800;
-    letter-spacing:.12em; text-transform:uppercase; z-index:0;
-  }
-  .cinematic-video-wrap.has-video::before { display:none; }
-  .cinematic-video { position:relative; z-index:1; width:100% !important; height:100% !important; object-fit:cover !important; }
-  .rendering { min-height:150vh !important; padding:10rem 5% !important; }
-  .rendering-container { position:sticky !important; top:105px !important; }
-  .rendering-frame { transform:perspective(1200px) translateY(var(--render-y,0px)) rotateX(var(--render-rx,0deg)) rotateY(var(--render-ry,0deg)) scale(var(--render-scale,1)) !important; }
-
 </style>
 </head>
 <body>
@@ -1674,9 +1648,7 @@
 <section class="cinematic" id="vision">
   <div class="cinematic-sticky">
     <div class="cinematic-video-wrap" id="cinematicVideoWrap">
-      <video class="cinematic-video" id="cinematicVideo" muted playsinline preload="auto">
-        <source src="./aerial_pov1.mp4" type="video/mp4">
-      </video>
+      <video class="cinematic-video" src="aerial_pov1.mp4" autoplay muted loop playsinline preload="metadata"></video>
     </div>
 
     <div class="cinematic-copy" id="cinematicCopy">
@@ -1867,7 +1839,7 @@
     <h2 class="section-title">The Facility</h2>
     <p class="rendering-subtitle">A world-class soccer facility designed for the Clarence community</p>
     <div class="rendering-frame" id="renderingFrame">
-      <img src="rendering2.png" onerror="this.onerror=null; this.src='rendering2.jpg.webp';" alt="The Yard Facility Rendering" class="rendering-image">
+      <img src="rendering2.png" alt="The Yard Facility Rendering" class="rendering-image">
       <div class="rendering-chip">Concept Rendering</div>
     </div>
   </div>
@@ -2097,18 +2069,19 @@
     const travel = Math.max(1, rect.height - window.innerHeight);
     const progress = clamp((-rect.top) / travel, 0, 1);
 
-    const width = 72 + progress * 28;
-    const height = 58 + progress * 42;
-    const scale = 0.92 + progress * 0.10;
-    const y = 36 - progress * 36;
+    // Apple-like motion: starts as floating card, grows to immersive full-screen, then lets text drift away.
+    const width = 78 + progress * 22;
+    const height = 62 + progress * 38;
+    const scale = 0.92 + progress * 0.11;
+    const y = 34 - progress * 34;
     const opacity = 0.72 + progress * 0.28;
-    const radius = Math.max(0, 40 - progress * 40);
-    const videoZoom = 1.10 - progress * 0.08;
-    const textY = 30 - progress * 110;
+    const radius = 38 - progress * 38;
+    const videoZoom = 1.08 - progress * 0.06;
+    const textY = 30 - progress * 80;
     const textScale = 1 + progress * 0.035;
-    const textOpacity = clamp(1 - Math.max(progress - 0.42, 0) * 2.15, 0, 1);
-    const cardY = 18 - progress * 56;
-    const cardOpacity = clamp(1 - Math.max(progress - 0.22, 0) * 2.5, 0, 1);
+    const textOpacity = clamp(1 - Math.max(progress - 0.58, 0) * 2.9, 0, 1);
+    const cardY = 18 - progress * 46;
+    const cardOpacity = clamp(1 - Math.max(progress - 0.35, 0) * 2.2, 0, 1);
 
     document.documentElement.style.setProperty('--cinema-width', width.toFixed(2) + 'vw');
     document.documentElement.style.setProperty('--cinema-height', height.toFixed(2) + 'vh');
@@ -2122,36 +2095,6 @@
     document.documentElement.style.setProperty('--cinema-text-opacity', textOpacity.toFixed(3));
     document.documentElement.style.setProperty('--cinema-card-y', cardY.toFixed(1) + 'px');
     document.documentElement.style.setProperty('--cinema-card-opacity', cardOpacity.toFixed(3));
-
-    if (cinemaVideo && Number.isFinite(cinemaVideo.duration) && cinemaVideo.duration > 0) {
-      const target = progress * Math.max(0.01, cinemaVideo.duration - 0.05);
-      if (Math.abs(cinemaVideo.currentTime - target) > 0.035) {
-        try { cinemaVideo.currentTime = target; } catch (e) {}
-      }
-    }
-  }
-
-  const cinemaVideo = document.getElementById('cinematicVideo');
-  if (cinemaVideo) {
-    cinemaVideo.muted = true;
-    cinemaVideo.playsInline = true;
-
-    const markVideoReady = () => {
-      cinemaWrap?.classList.add('has-video');
-      try { cinemaVideo.pause(); } catch (e) {}
-      updateCinematic();
-    };
-
-    cinemaVideo.addEventListener('loadedmetadata', markVideoReady);
-    cinemaVideo.addEventListener('canplay', markVideoReady);
-    cinemaVideo.addEventListener('error', () => {
-      cinemaWrap?.classList.remove('has-video');
-    });
-
-    cinemaVideo.play().then(() => {
-      cinemaVideo.pause();
-      updateCinematic();
-    }).catch(() => updateCinematic());
   }
 
   window.addEventListener('scroll', updateCinematic, { passive: true });
