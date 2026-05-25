@@ -164,6 +164,7 @@
     text-transform: uppercase;
     color: var(--white);
     animation: fadeUp 0.8s 0.15s ease both;
+    text-align: center;
   }
 
   .hero h1 em {
@@ -422,9 +423,11 @@
   .program-card {
     background: var(--white);
     padding: 2.5rem 2rem;
-    transition: background 0.3s;
+    transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
     position: relative;
     overflow: hidden;
+    border-radius: 16px;
+    border: 2px solid transparent;
   }
 
   .program-card::before {
@@ -439,7 +442,12 @@
   }
 
   .program-card:hover::before { transform: scaleX(1); }
-  .program-card:hover { background: #f0f5ff; }
+  .program-card:hover { 
+    background: linear-gradient(135deg, #f0f5ff 0%, #ffffff 100%);
+    transform: translateY(-8px);
+    border-color: var(--blue-light);
+    box-shadow: 0 16px 52px rgba(37, 99, 235, 0.15);
+  }
 
   .program-icon {
     font-size: 2.25rem;
@@ -560,14 +568,16 @@
 
   .founder-card {
     background: var(--white);
-    border: 1px solid var(--gray-light);
-    border-radius: 12px;
+    border: 2px solid var(--gray-light);
+    border-radius: 16px;
     overflow: hidden;
-    transition: box-shadow 0.25s;
+    transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
   }
 
   .founder-card:hover {
-    box-shadow: 0 8px 32px rgba(29,78,216,0.12);
+    transform: translateY(-12px);
+    border-color: var(--blue-light);
+    box-shadow: 0 20px 60px rgba(37, 99, 235, 0.2);
   }
 
   .founder-header {
@@ -637,6 +647,40 @@
     display: flex;
     flex-wrap: wrap;
     gap: 0.4rem;
+  }
+
+  /* ── TEAM PHOTO SECTION ── */
+  .team-photo-section {
+    margin-top: 4rem;
+    padding-top: 3rem;
+    border-top: 2px solid var(--blue-accent);
+    text-align: center;
+  }
+
+  .team-photo-section h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.3rem;
+    font-weight: 600;
+    color: var(--blue-dark);
+    margin-bottom: 2rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+
+  .team-photo {
+    width: 100%;
+    max-width: 600px;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(24, 49, 83, 0.2);
+    display: block;
+    margin: 0 auto;
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s;
+  }
+
+  .team-photo:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 30px 80px rgba(24, 49, 83, 0.35);
   }
 
   /* ── COMMUNITY CTA ── */
@@ -889,6 +933,36 @@
     to   { opacity: 1; transform: translateY(0); }
   }
 
+  @keyframes float {
+    0%, 100% { transform: translateY(0px); }
+    50% { transform: translateY(-12px); }
+  }
+
+  @keyframes glow {
+    0%, 100% { box-shadow: 0 8px 32px rgba(37, 99, 235, 0.15); }
+    50% { box-shadow: 0 12px 48px rgba(37, 99, 235, 0.3); }
+  }
+
+  @keyframes shimmer {
+    0% { background-position: -1000px 0; }
+    100% { background-position: 1000px 0; }
+  }
+
+  @keyframes slideInLeft {
+    from { opacity: 0; transform: translateX(-40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes slideInRight {
+    from { opacity: 0; transform: translateX(40px); }
+    to { opacity: 1; transform: translateX(0); }
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.7; }
+  }
+
   .reveal {
     opacity: 0;
     transform: translateY(28px);
@@ -898,6 +972,39 @@
   .reveal.visible {
     opacity: 1;
     transform: translateY(0);
+  }
+
+  .program-card {
+    animation: glow 3s ease-in-out infinite;
+  }
+
+  .program-card:hover {
+    animation: none !important;
+    box-shadow: 0 16px 52px rgba(37, 99, 235, 0.3) !important;
+  }
+
+  .founder-card {
+    animation: glow 3.5s ease-in-out infinite;
+  }
+
+  .btn-primary, .btn-outline {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .btn-primary::before, .btn-outline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255,255,255,0.2);
+    transition: left 0.5s ease;
+  }
+
+  .btn-primary:hover::before, .btn-outline:hover::before {
+    left: 100%;
   }
 
   /* ── RESPONSIVE ── */
@@ -973,7 +1080,7 @@
     <circle cx="720" cy="800" r="4" fill="white"/>
   </svg>
 
-  <div class="hero-badge">Clarence, NY · 501(c)(3) Nonprofit · EIN 41-2851946</div>
+  <div class="hero-badge">Clarence, NY · 501(c)(3) Nonprofit</div>
   <h1>The<br><em>Yard</em></h1>
   <p class="hero-sub">Community soccer and recreation for everyone in Clarence — free public play, youth development, and a space where the game brings people together.</p>
   <div class="hero-actions">
@@ -1048,32 +1155,32 @@
   </div>
   <div class="programs-grid">
     <div class="program-card reveal">
-      <span class="program-icon">⚽</span>
+      <span class="program-icon">⚫</span>
       <h3>Open Public Play</h3>
       <p>Drop in anytime during posted hours for free pickup soccer and casual recreation. No sign-ups, no teams required — just show up and play.</p>
     </div>
     <div class="program-card reveal">
-      <span class="program-icon">🏃</span>
+      <span class="program-icon">◆</span>
       <h3>Youth Clinics</h3>
       <p>Structured developmental sessions focused on technical skills, creativity, and decision-making in a fun, low-pressure small-sided environment.</p>
     </div>
     <div class="program-card reveal">
-      <span class="program-icon">🏆</span>
+      <span class="program-icon">◆</span>
       <h3>Charity Tournaments</h3>
       <p>Community-wide events and fundraising tournaments benefiting local and national causes. Soccer as a platform for giving back.</p>
     </div>
     <div class="program-card reveal">
-      <span class="program-icon">🎓</span>
+      <span class="program-icon">◆</span>
       <h3>Collegiate & Adult Leagues</h3>
       <p>Recreational leagues for college students and adults in the Clarence area, keeping players active and connected to the game they love.</p>
     </div>
     <div class="program-card reveal">
-      <span class="program-icon">♿</span>
+      <span class="program-icon">◆</span>
       <h3>Adaptive Recreation</h3>
       <p>Dedicated programming and designated play times for children and adults with disabilities — because The Yard is truly for everyone.</p>
     </div>
     <div class="program-card reveal">
-      <span class="program-icon">🤝</span>
+      <span class="program-icon">◆</span>
       <h3>Community Events</h3>
       <p>Gatherings, watch parties, and neighborhood events that bring Clarence families together and strengthen local community bonds.</p>
     </div>
@@ -1107,13 +1214,7 @@
           <p>A thoughtfully sized footprint with landscaping and buffering to respect the semi-rural character of Clarence and neighboring areas.</p>
         </div>
       </div>
-      <div class="feature-item">
-        <div class="feature-dot"></div>
-        <div>
-          <h4>On-Site Parking</h4>
-          <p>Dedicated parking to support convenient community access during both open play hours and organized programming events.</p>
-        </div>
-      </div>
+
       <div class="feature-item">
         <div class="feature-dot"></div>
         <div>
@@ -1203,14 +1304,21 @@
       </div>
       <div class="founder-body">
         <p>A Clarence native who progressed from Clarence Soccer Club to Empire United Development Academy, Tyler played Division I soccer at DePaul University in the Big East Conference and Division III at the University of Rochester.</p>
-        <p>Tyler holds degrees in Physics and Electrical Engineering. His technical background and passion for youth development make him a driving force in building The Yard into a lasting community institution.</p>
+        <p>Tyler holds degrees in Physics and Electrical Engineering. His technical background and passion for youth development make him a driving force in building The Yard into a lasting community institution. Tyler also helped establish the Milcreek Cup, a community soccer tournament.</p>
         <div class="founder-tags">
           <span class="founder-tag">DePaul University</span>
           <span class="founder-tag">University of Rochester</span>
           <span class="founder-tag">Physics & Engineering</span>
+          <span class="founder-tag">Milcreek Cup</span>
         </div>
       </div>
     </div>
+  </div>
+
+  <!-- TEAM PHOTO -->
+  <div class="team-photo-section reveal">
+    <h3>In Action</h3>
+    <img src="team-photo.jpg" alt="The Yard Team" class="team-photo">
   </div>
 </section>
 
@@ -1293,7 +1401,7 @@
     © 2026 The Yard, Inc. · Clarence, New York<br>
     All rights reserved · Community-first recreation
   </div>
-  <div class="footer-ein">501(c)(3) · EIN 41-2851946</div>
+  <div class="footer-ein">501(c)(3) Nonprofit</div>
 </footer>
 
 <script>
