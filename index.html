@@ -860,6 +860,12 @@
     object-fit: contain;
   }
 
+  .corner-logo-svg {
+    width: 90%;
+    height: 90%;
+    stroke: #0052cc;
+  }
+
   @media (max-width: 600px) {
     .hero { padding-bottom: 6rem; }
     .mission-stats { grid-template-columns: 1fr; }
@@ -1251,16 +1257,16 @@
     this.style.display = 'none';
     document.getElementById('formSuccess').style.display = 'block';
   });
-
-  // Logo click handler (optional: scroll to top)
-  document.querySelector('.corner-logo')?.addEventListener('click', function() {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  });
 </script>
 
 <!-- Corner Logo -->
-<div class="corner-logo" title="The Yard - Community Soccer & Recreation">
-  <img src="logo.png" alt="The Yard Logo">
+<div class="corner-logo" title="The Yard - Community Soccer & Recreation" onclick="window.scrollTo({top: 0, behavior: 'smooth'})">
+  <svg class="corner-logo-svg" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
+    <rect x="214" y="108" width="596" height="808" rx="20" fill="none" stroke="#0052cc" stroke-width="40"/>
+    <circle cx="512" cy="270" r="90" fill="none" stroke="#0052cc" stroke-width="40"/>
+    <circle cx="512" cy="770" r="90" fill="none" stroke="#0052cc" stroke-width="40"/>
+    <line x1="240" y1="512" x2="784" y2="512" stroke="#0052cc" stroke-width="50"/>
+  </svg>
 </div>
 
 </body>
