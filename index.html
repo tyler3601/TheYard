@@ -201,14 +201,19 @@
     color: var(--white);
     padding: 0.85rem 2rem;
     border: none;
-    border-radius: 4px;
+    border-radius: 8px;
     text-decoration: none;
     cursor: pointer;
-    transition: background 0.2s, transform 0.15s;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
     display: inline-block;
+    box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
   }
 
-  .btn-primary:hover { background: var(--blue); transform: translateY(-2px); }
+  .btn-primary:hover { 
+    background: var(--blue); 
+    transform: translateY(-4px);
+    box-shadow: 0 12px 36px rgba(37, 99, 235, 0.5);
+  }
 
   .btn-outline {
     font-family: 'Barlow Condensed', sans-serif;
@@ -219,15 +224,21 @@
     background: transparent;
     color: var(--blue-light);
     padding: 0.85rem 2rem;
-    border: 1px solid rgba(96,165,250,0.45);
-    border-radius: 4px;
+    border: 2px solid rgba(96,165,250,0.6);
+    border-radius: 8px;
     text-decoration: none;
     cursor: pointer;
-    transition: border-color 0.2s, color 0.2s, transform 0.15s;
+    transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
     display: inline-block;
   }
 
-  .btn-outline:hover { border-color: var(--blue-light); color: var(--white); transform: translateY(-2px); }
+  .btn-outline:hover { 
+    border-color: var(--blue-light); 
+    color: var(--blue-light); 
+    transform: translateY(-4px);
+    background: rgba(96,165,250,0.1);
+    box-shadow: 0 8px 24px rgba(96,165,250,0.2);
+  }
 
   .hero-scroll {
     position: absolute;
@@ -309,14 +320,24 @@
     display: flex;
     align-items: center;
     gap: 0.75rem;
+    animation: slideInLeft 0.6s ease both;
   }
 
   .section-label::before {
     content: '';
     display: block;
     width: 28px;
-    height: 2px;
-    background: var(--blue-accent);
+    height: 3px;
+    background: linear-gradient(90deg, var(--blue-accent), transparent);
+    border-radius: 2px;
+    box-shadow: 0 0 12px rgba(37, 99, 235, 0.4);
+    transition: all 0.3s ease;
+  }
+
+  .section-label:hover::before {
+    width: 40px;
+    box-shadow: 0 0 20px rgba(37, 99, 235, 0.6);
+  }
     flex-shrink: 0;
   }
 
@@ -792,11 +813,28 @@
   .form-group textarea,
   .form-group select {
     background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(96,165,250,0.2);
-    border-radius: 6px;
+    border: 2px solid rgba(96,165,250,0.3);
+    border-radius: 8px;
     padding: 0.8rem 1rem;
     color: var(--white);
     font-family: 'Barlow', sans-serif;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(4px);
+  }
+
+  .form-group input::placeholder,
+  .form-group textarea::placeholder {
+    color: rgba(255,255,255,0.4);
+  }
+
+  .form-group input:focus,
+  .form-group textarea:focus,
+  .form-group select:focus {
+    outline: none;
+    border-color: var(--blue-light);
+    background: rgba(255,255,255,0.1);
+    box-shadow: 0 0 16px rgba(96,165,250,0.3);
+  }
     font-size: 0.975rem;
     outline: none;
     transition: border-color 0.2s, background 0.2s;
@@ -922,9 +960,15 @@
   .rendering-image {
     width: 100%;
     height: auto;
-    border-radius: 16px;
-    box-shadow: 0 12px 48px rgba(24, 49, 83, 0.12);
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(24, 49, 83, 0.2);
     display: block;
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.4s;
+  }
+
+  .rendering-image:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 30px 80px rgba(24, 49, 83, 0.35);
   }
 
   /* ── ANIMATIONS ── */
@@ -1318,7 +1362,7 @@
   <!-- TEAM PHOTO -->
   <div class="team-photo-section reveal">
     <h3>In Action</h3>
-    <img src="team-photo.jpg" alt="The Yard Team" class="team-photo">
+    <img src="founders.jpeg" alt="The Yard Team" class="team-photo">
   </div>
 </section>
 
