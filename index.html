@@ -1157,13 +1157,14 @@
 
 
   /* ── APPLE-STYLE CINEMATIC VIDEO HERO PANEL ── */
-  .cinematic {
-    position: relative;
-    min-height: 180vh;
-    padding: 0;
-    background: #050b16;
-    overflow: clip;
-  }
+
+.cinematic {
+  position: relative;
+  min-height: 180vh;
+  padding: 0;
+  background: #050b16;
+  overflow: hidden;
+}
 
   .cinematic-sticky {
     position: sticky;
@@ -1189,10 +1190,11 @@
 
   .cinematic-video {
     width: 100%;
-    height: 100%;
+    height: 100vh;
     object-fit: cover;
-    filter: saturate(1.15) contrast(1.05) brightness(0.74);
-    transform: scale(1.04);
+    display: block;
+    filter: brightness(0.72) contrast(1.08) saturate(1.15);
+    transform: scale(1.02);
   }
 
   .cinematic-sticky::before {
@@ -1699,7 +1701,7 @@
   <div class="rendering-container reveal">
     <h2 class="section-title">The Facility</h2>
     <p class="rendering-subtitle">A world-class soccer facility designed for the Clarence community</p>
-    <img src="rendering1.png" alt="The Yard Facility Rendering" class="rendering-image">
+    <img src="rendering2.jpg.webp" alt="The Yard Facility Rendering" class="rendering-image">
   </div>
 </section>
 
