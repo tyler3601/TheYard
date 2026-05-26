@@ -254,20 +254,6 @@
     z-index: 1;
   }
 
-  .field-hinge {
-    position: absolute;
-    left: 5%;
-    right: 5%;
-    top: 50%;
-    height: 1px;
-    z-index: 1;
-    pointer-events: none;
-    opacity: var(--field-hinge-opacity, 0);
-    transform: translateY(-50%);
-    background: linear-gradient(90deg, transparent, rgba(191,219,254,0.72), transparent);
-    box-shadow: 0 0 24px rgba(96,165,250,0.45);
-  }
-
   .soccer-ball {
     position: absolute;
     left: 0;
@@ -1721,7 +1707,6 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="field-hinge" aria-hidden="true"></div>
   <div class="soccer-ball" aria-hidden="true">
     <img src="ball.png" alt="">
   </div>
@@ -2169,7 +2154,6 @@
     const stageScale = 1 - progress * 0.08;
     const stageOpacity = 1 - smoothstep(0.22, 0.82, progress);
     const opacity = 0.05 + progress * 0.12;
-    const hingeOpacity = Math.sin(progress * Math.PI) * 0.58;
     const ballReveal = smoothstep(0.08, 0.28, progress) * (1 - smoothstep(0.9, 1, progress));
     const ballX = -10 + progress * 122;
     const ballY = Math.sin(progress * Math.PI) * -34 + progress * 74;
@@ -2180,7 +2164,6 @@
     document.documentElement.style.setProperty('--field-y', y.toFixed(1) + 'px');
     document.documentElement.style.setProperty('--field-scale', scale.toFixed(3));
     document.documentElement.style.setProperty('--field-opacity', opacity.toFixed(3));
-    document.documentElement.style.setProperty('--field-hinge-opacity', hingeOpacity.toFixed(3));
     document.documentElement.style.setProperty('--hero-stage-tilt', stageTilt.toFixed(2) + 'deg');
     document.documentElement.style.setProperty('--hero-stage-y', stageY.toFixed(1) + 'px');
     document.documentElement.style.setProperty('--hero-stage-scale', stageScale.toFixed(3));
