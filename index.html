@@ -4,8 +4,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Yard — Community Soccer & Recreation | Clarence, NY</title>
-<meta name="description" content="The Yard is a 501(c)(3) nonprofit bringing community-centered soccer and recreation to Clarence, New York. Free public play, youth development, and inclusive programming.">
+<title>The Yard — Community Soccer & Recreation | Western New York</title>
+<meta name="description" content="The Yard is a 501(c)(3) nonprofit bringing community-centered soccer and recreation to Western New York. Free public play, youth development, and inclusive programming.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,400;0,600;0,700;0,800;0,900;1,700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
@@ -564,6 +564,120 @@
     color: var(--gray-mid);
     margin-top: 0.6rem;
     line-height: 1.45;
+  }
+
+  /* ── GROWTH VISION ── */
+  .growth {
+    background:
+      radial-gradient(circle at 82% 18%, rgba(96,165,250,0.16), transparent 26rem),
+      linear-gradient(135deg, #08111f 0%, var(--blue-dark) 58%, #0b1b34 100%);
+    color: var(--white);
+    overflow: hidden;
+  }
+
+  .growth .section-label {
+    color: var(--blue-light);
+  }
+
+  .growth .section-label::before {
+    background: var(--blue-light);
+  }
+
+  .growth-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .growth-copy .section-title {
+    color: var(--white);
+    margin-bottom: 1.5rem;
+  }
+
+  .growth-copy p {
+    color: var(--blue-pale);
+    font-size: 1.05rem;
+    line-height: 1.8;
+    margin-bottom: 1.1rem;
+    opacity: 0.88;
+  }
+
+  .growth-pill-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1.6rem;
+  }
+
+  .growth-pill {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--white);
+    border: 1px solid rgba(96,165,250,0.35);
+    background: rgba(255,255,255,0.06);
+    border-radius: 999px;
+    padding: 0.55rem 0.85rem;
+    font-size: 0.8rem;
+  }
+
+  .growth-card {
+    position: relative;
+    border-radius: 18px;
+    padding: 2.4rem;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.10), rgba(255,255,255,0.045)),
+      radial-gradient(circle at 20% 0%, rgba(96,165,250,0.22), transparent 16rem);
+    border: 1px solid rgba(147,197,253,0.24);
+    box-shadow: 0 35px 100px rgba(0,0,0,0.28);
+  }
+
+  .growth-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.1rem, 4vw, 4.2rem);
+    line-height: 0.92;
+    text-transform: uppercase;
+    margin-bottom: 1.2rem;
+  }
+
+  .growth-card p {
+    color: rgba(219,234,254,0.86);
+    line-height: 1.75;
+    margin-bottom: 1.4rem;
+  }
+
+  .growth-list {
+    display: grid;
+    gap: 0.8rem;
+    margin-top: 1.5rem;
+  }
+
+  .growth-list span {
+    display: flex;
+    gap: 0.7rem;
+    align-items: flex-start;
+    color: rgba(255,255,255,0.88);
+    line-height: 1.5;
+  }
+
+  .growth-list span::before {
+    content: '';
+    width: 8px;
+    height: 8px;
+    border-radius: 999px;
+    background: var(--blue-light);
+    box-shadow: 0 0 18px rgba(96,165,250,0.8);
+    flex: 0 0 auto;
+    margin-top: 0.45rem;
+  }
+
+  .growth-card a {
+    color: #bfdbfe;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(191,219,254,0.45);
   }
 
   /* ── PROGRAMS ── */
@@ -1672,6 +1786,7 @@
     .nav-divider { display: none; }
     .hamburger { display: flex; }
     .mission, .contact { grid-template-columns: 1fr; gap: 3rem; }
+    .growth-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     .programs-grid { grid-template-columns: 1fr; }
     .founders-grid { grid-template-columns: 1fr; }
     .facility-grid { grid-template-columns: 1fr; gap: 2rem; }
@@ -1711,6 +1826,7 @@
     <li class="nav-divider" aria-hidden="true"></li>
     <li><a href="#mission">Mission</a></li>
     <li><a href="#vision">Vision</a></li>
+    <li><a href="#growth">Growth</a></li>
     <li><a href="#programs">Programs</a></li>
     <li><a href="#facility">Facility</a></li>
     <li><a href="#founders">Founders</a></li>
@@ -1749,9 +1865,9 @@
   </svg>
 
   <div class="hero-stage">
-    <div class="hero-badge">Clarence, NY · 501(c)(3) Nonprofit</div>
+    <div class="hero-badge">Western New York · 501(c)(3) Nonprofit</div>
     <h1>The<br><em>Yard</em></h1>
-    <p class="hero-sub">Community soccer and recreation for everyone in Clarence — free public play, youth development, and a space where the game brings people together.</p>
+    <p class="hero-sub">Community soccer and recreation for Western New York — free public play, youth development, and a space where the game brings people together.</p>
     <div class="hero-actions">
       <a href="#mission" class="btn-primary">Learn More</a>
       <a href="#contact" class="btn-outline">Get Involved</a>
@@ -1791,7 +1907,7 @@
     <span>Youth Development</span><span class="marquee-sep">◆</span>
     <span>Small-Sided Soccer</span><span class="marquee-sep">◆</span>
     <span>Community First</span><span class="marquee-sep">◆</span>
-    <span>Clarence, New York</span><span class="marquee-sep">◆</span>
+    <span>Western New York</span><span class="marquee-sep">◆</span>
     <span>Adaptive Recreation</span><span class="marquee-sep">◆</span>
     <span>Charity Events</span><span class="marquee-sep">◆</span>
     <span>Open to All Ages</span><span class="marquee-sep">◆</span>
@@ -1799,7 +1915,7 @@
     <span>Youth Development</span><span class="marquee-sep">◆</span>
     <span>Small-Sided Soccer</span><span class="marquee-sep">◆</span>
     <span>Community First</span><span class="marquee-sep">◆</span>
-    <span>Clarence, New York</span><span class="marquee-sep">◆</span>
+    <span>Buffalo & Nearby Communities</span><span class="marquee-sep">◆</span>
     <span>Adaptive Recreation</span><span class="marquee-sep">◆</span>
     <span>Charity Events</span><span class="marquee-sep">◆</span>
     <span>Open to All Ages</span><span class="marquee-sep">◆</span>
@@ -1811,8 +1927,8 @@
   <div class="mission-text reveal">
     <div class="section-label">Our Mission</div>
     <h2 class="section-title">Built for the<br>Community</h2>
-    <p>The Yard, Inc. is a registered 501(c)(3) nonprofit organization dedicated to expanding access to high-quality recreational opportunities for youth, families, and residents of the Town of Clarence through soccer, physical activity, and community-centered programming.</p>
-    <p>Our goal is simple: create a safe, welcoming space where anyone can play, grow, and connect — without barriers.</p>
+    <p>The Yard, Inc. is a registered 501(c)(3) nonprofit organization dedicated to expanding access to high-quality recreational opportunities for youth, families, and residents across Western New York through soccer, physical activity, and community-centered programming.</p>
+    <p>Our long-term goal is to help build a network of small-sided soccer spaces across Western New York and beyond — safe, welcoming fields where anyone can play, grow, and connect without barriers.</p>
     <a href="#contact" class="btn-primary" style="margin-top:1rem;">Support Our Mission</a>
   </div>
   <div class="mission-stats reveal">
@@ -1826,11 +1942,39 @@
     </div>
     <div class="stat-card">
       <div class="stat-number">Free</div>
-      <div class="stat-label">Public open play for all Clarence residents</div>
+      <div class="stat-label">Public open play for local residents and families</div>
     </div>
     <div class="stat-card">
       <div class="stat-number">All Ages</div>
       <div class="stat-label">Youth, teens, adults, and adaptive programming</div>
+    </div>
+  </div>
+</section>
+
+<!-- GROWTH VISION -->
+<section class="growth" id="growth">
+  <div class="growth-grid">
+    <div class="growth-copy reveal">
+      <div class="section-label">Growing the Game</div>
+      <h2 class="section-title">A Network of<br>Small-Sided Fields</h2>
+      <p>The Yard is built to help communities across Western New York, and eventually beyond, create compact soccer spaces that make the game easier to access every day.</p>
+      <p>Small-sided fields create more touches, faster decisions, tighter control, and more creativity. That is how kids grow up playing in many soccer cultures across Europe and South America, and it is the kind of environment that can help build the next generation of technically gifted American players.</p>
+      <p>With the FIFA World Cup 2026 coming to North America, including U.S. host cities, soccer is entering a major growth moment. We want The Yard to help turn that excitement into lasting local infrastructure and, in our own small way, help push the United States toward becoming a top soccer nation.</p>
+      <div class="growth-pill-row">
+        <span class="growth-pill">More Touches</span>
+        <span class="growth-pill">More Creativity</span>
+        <span class="growth-pill">More Access</span>
+        <span class="growth-pill">More Community</span>
+      </div>
+    </div>
+    <div class="growth-card reveal">
+      <h3>Built With Proven Partners</h3>
+      <p>We are currently working with <a href="https://www.urbansoccerpark.com" target="_blank" rel="noopener">Urban Soccer Park</a>, a modular mini-pitch company whose projects include fields connected to Christian Pulisic, YMCA locations, and the San Jose Earthquakes.</p>
+      <div class="growth-list">
+        <span>Scalable mini-pitch designs for parks, schools, neighborhoods, and underused spaces.</span>
+        <span>A model that can start locally in WNY and grow wherever community partners see a need.</span>
+        <span>Small-sided soccer infrastructure designed for daily play, youth development, clinics, and open access.</span>
+      </div>
     </div>
   </div>
 </section>
@@ -1842,7 +1986,7 @@
       <div class="section-label">What We Offer</div>
       <h2 class="section-title">Programs &<br>Opportunities</h2>
     </div>
-    <p>From casual pickup games to structured youth clinics, The Yard is designed to serve the whole Clarence community.</p>
+    <p>From casual pickup games to structured youth clinics, The Yard is designed to serve communities across Western New York.</p>
   </div>
   <div class="programs-grid">
     <div class="program-card reveal">
@@ -1863,7 +2007,7 @@
     <div class="program-card reveal">
       <span class="program-icon"><svg viewBox="0 0 24 24"><path d="M4 19V7l8-4 8 4v12"/><path d="M8 19v-7h8v7"/></svg></span>
       <h3>Collegiate & Adult Leagues</h3>
-      <p>Recreational leagues for college students and adults in the Clarence area, keeping players active and connected to the game they love.</p>
+      <p>Recreational leagues for college students and adults across the region, keeping players active and connected to the game they love.</p>
     </div>
     <div class="program-card reveal">
       <span class="program-icon"><svg viewBox="0 0 24 24"><path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M16 20a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M12 8h4M8 12v4"/></svg></span>
@@ -1873,7 +2017,7 @@
     <div class="program-card reveal">
       <span class="program-icon"><svg viewBox="0 0 24 24"><path d="M4 12h16"/><path d="M12 4v16"/><path d="M6.5 6.5l11 11"/><path d="M17.5 6.5l-11 11"/></svg></span>
       <h3>Community Events</h3>
-      <p>Gatherings, watch parties, and neighborhood events that bring Clarence families together and strengthen local community bonds.</p>
+      <p>Gatherings, watch parties, and neighborhood events that bring families together and strengthen local community bonds.</p>
     </div>
   </div>
 </section>
@@ -1881,7 +2025,7 @@
 <!-- FACILITY -->
 <section class="facility" id="facility">
   <div class="section-label reveal">The Facility</div>
-  <h2 class="section-title reveal">A Modern Space<br>for Clarence</h2>
+  <h2 class="section-title reveal">A Modern Space<br>for WNY</h2>
   <div class="facility-grid">
     <div class="facility-features reveal">
       <div class="feature-item">
@@ -1902,7 +2046,7 @@
         <div class="feature-dot"></div>
         <div>
           <h4>Compact, Efficient Design</h4>
-          <p>A thoughtfully sized footprint with landscaping and buffering to respect the semi-rural character of Clarence and neighboring areas.</p>
+          <p>A thoughtfully sized footprint with landscaping and buffering that can adapt to the character and needs of each potential host community.</p>
         </div>
       </div>
 
@@ -1941,14 +2085,10 @@
         <span class="spec-value">Evening-Appropriate</span>
       </div>
       <div class="spec-row">
-        <span class="spec-label">Location</span>
-        <span class="spec-value">Clarence, New York</span>
-      </div>
-      <div class="spec-row">
         <span class="spec-label">Site Status</span>
         <span class="spec-value">Partnership Pending</span>
       </div>
-      <p style="margin-top:1.5rem; font-size:0.85rem; color:rgba(156,163,175,0.6); line-height:1.6;">Final design and configuration subject to Town of Clarence input and applicable review processes.</p>
+      <p style="margin-top:1.5rem; font-size:0.85rem; color:rgba(156,163,175,0.6); line-height:1.6;">Final design and configuration will depend on site partners, community input, and applicable review processes.</p>
     </div>
   </div>
 </section>
@@ -1957,7 +2097,7 @@
 <section class="rendering">
   <div class="rendering-container reveal">
     <h2 class="section-title">The Facility</h2>
-    <p class="rendering-subtitle">A world-class soccer facility designed for the Clarence community</p>
+    <p class="rendering-subtitle">A world-class soccer facility concept designed for Western New York communities</p>
     <div class="rendering-frame" id="renderingFrame">
       <img src="rendering2.png" alt="The Yard Facility Rendering" class="rendering-image">
       <div class="rendering-chip">Concept Rendering</div>
@@ -2036,7 +2176,7 @@
     </div>
     <div class="contact-detail">
       <strong>Location</strong>
-      <span>Clarence, New York</span>
+      <span>Western New York</span>
     </div>
     <div class="contact-detail">
       <strong>Status</strong>
@@ -2106,7 +2246,7 @@
 <footer>
   <div class="footer-logo">The Yard</div>
   <div class="footer-info">
-    © 2026 The Yard, Inc. · Clarence, New York<br>
+    © 2026 The Yard, Inc. · Western New York<br>
     All rights reserved · Community-first recreation
   </div>
 </footer>
