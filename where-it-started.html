@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Where It Started | The Yard</title>
+<meta name="description" content="The Yard began with a front-yard small-sided soccer tournament that raised $3,000 for Make-A-Wish and showed the need for a permanent community soccer space.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue-dark: #0f2240;
+    --blue-mid: #1a3a6b;
+    --blue-accent: #2563eb;
+    --blue-light: #60a5fa;
+    --blue-pale: #bfdbfe;
+    --gray-bg: #f1f4f8;
+    --gray: #6b7280;
+    --gray-dark: #374151;
+    --white: #ffffff;
+    --text: #111827;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    min-height: 100%;
+    overflow-x: hidden;
+    font-family: 'Barlow', sans-serif;
+    color: var(--text);
+    background: var(--gray-bg);
+  }
+
+  img, video { max-width: 100%; display: block; }
+
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    height: 72px;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(15, 34, 64, 0.90);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(96,165,250,0.25);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.18);
+  }
+
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.75rem;
+    letter-spacing: 0.04em;
+    color: var(--blue-light);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: clamp(1rem, 2vw, 2.25rem);
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.86rem, 1vw, 1rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #e5e7eb;
+    text-decoration: none;
+    opacity: 0.82;
+  }
+
+  .nav-links a:hover,
+  .nav-links .active { opacity: 1; color: var(--blue-light); }
+
+  .nav-page {
+    color: var(--blue-light) !important;
+    opacity: 1 !important;
+  }
+
+  .nav-divider {
+    width: 1px;
+    height: 18px;
+    background: rgba(96,165,250,0.32);
+  }
+
+  .nav-cta {
+    background: var(--blue-accent);
+    color: var(--white) !important;
+    padding: 0.45rem 1.25rem;
+    border-radius: 4px;
+    opacity: 1 !important;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--blue-light);
+    border-radius: 2px;
+  }
+
+  .story-hero {
+    min-height: 100svh;
+    position: relative;
+    display: grid;
+    align-items: end;
+    padding: 8.5rem 5% 5rem;
+    overflow: hidden;
+    color: var(--white);
+    background: var(--blue-dark);
+  }
+
+  .story-hero video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.58) contrast(1.08) saturate(1.08);
+  }
+
+  .story-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(90deg, rgba(15,34,64,0.82), rgba(15,34,64,0.35) 54%, rgba(15,34,64,0.18)),
+      linear-gradient(to top, rgba(5,11,22,0.84), transparent 52%);
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 920px;
+  }
+
+  .eyebrow {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--blue-light);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(4rem, 12vw, 10rem);
+    line-height: 0.86;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .hero-content p {
+    max-width: 680px;
+    margin-top: 1.5rem;
+    color: rgba(255,255,255,0.86);
+    font-size: clamp(1.05rem, 2vw, 1.32rem);
+    line-height: 1.65;
+  }
+
+  .story-band {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 5rem;
+    align-items: center;
+    padding: 7rem 5%;
+    background: var(--white);
+  }
+
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    font-size: 0.82rem;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--blue-accent);
+    margin-bottom: 1rem;
+  }
+
+  h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.7rem, 6vw, 5.4rem);
+    line-height: 0.94;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+    text-wrap: balance;
+  }
+
+  .story-copy p {
+    margin-top: 1.35rem;
+    font-size: 1.05rem;
+    line-height: 1.8;
+    color: var(--gray-dark);
+  }
+
+  .proof-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .proof-card {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 1.2rem;
+  }
+
+  .proof-card strong {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 2rem;
+    line-height: 1;
+    color: var(--blue-accent);
+    text-transform: uppercase;
+  }
+
+  .proof-card span {
+    display: block;
+    margin-top: 0.45rem;
+    color: var(--gray);
+    font-size: 0.92rem;
+    line-height: 1.35;
+  }
+
+  .photo-stack {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .story-photo {
+    width: 100%;
+    height: min(42vw, 430px);
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 24px 70px rgba(15,34,64,0.20);
+  }
+
+  .story-photo.check { object-position: center 64%; }
+  .story-photo.sponsors { object-position: center 48%; }
+
+  .blue-panel {
+    padding: 7rem 5%;
+    background:
+      radial-gradient(circle at 85% 10%, rgba(96,165,250,0.22), transparent 30rem),
+      var(--blue-dark);
+    color: var(--white);
+  }
+
+  .blue-panel-inner {
+    max-width: 1060px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.85fr 1.15fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .blue-panel h2 { color: var(--white); }
+  .blue-panel .section-label { color: var(--blue-light); }
+
+  .blue-panel p {
+    color: var(--blue-pale);
+    font-size: 1.08rem;
+    line-height: 1.8;
+  }
+
+  .quote {
+    margin-top: 1.8rem;
+    padding-left: 1.4rem;
+    border-left: 4px solid var(--blue-light);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(1.6rem, 3vw, 2.4rem);
+    line-height: 1.05;
+    font-weight: 800;
+    text-transform: uppercase;
+    color: var(--white);
+  }
+
+  .cta-strip {
+    padding: 5rem 5%;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--blue-accent);
+    color: var(--white);
+  }
+
+  .cta-strip h2 {
+    color: var(--white);
+    font-size: clamp(2.4rem, 5vw, 4.5rem);
+  }
+
+  .btn {
+    flex-shrink: 0;
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-accent);
+    background: var(--white);
+    text-decoration: none;
+    border-radius: 6px;
+    padding: 0.95rem 1.6rem;
+  }
+
+  @media (max-width: 1100px) {
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      padding: 2rem 5%;
+      background: rgba(15,34,64,0.98);
+      border-bottom: 1px solid rgba(96,165,250,0.15);
+    }
+    .nav-divider { display: none; }
+    .hamburger { display: flex; }
+    .story-band,
+    .blue-panel-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .proof-grid { grid-template-columns: 1fr; }
+    .story-photo { height: min(72vw, 440px); }
+    .cta-strip {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .story-hero { min-height: 92svh; padding-top: 7rem; }
+    .story-band, .blue-panel, .cta-strip { padding: 5rem 5%; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/index.html" class="nav-logo">The Yard</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/index.html" class="nav-page">Home</a></li>
+    <li><a href="/where-it-started.html" class="nav-page active">Where It Started</a></li>
+    <li><a href="/community-access.html" class="nav-page">Community Access</a></li>
+    <li class="nav-divider" aria-hidden="true"></li>
+    <li><a href="/index.html#mission">Mission</a></li>
+    <li><a href="/index.html#vision">Vision</a></li>
+    <li><a href="/index.html#programs">Programs</a></li>
+    <li><a href="/index.html#facility">Facility</a></li>
+    <li><a href="/index.html#founders">Founders</a></li>
+    <li><a href="/index.html#contact" class="nav-cta">Get Involved</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main>
+  <section class="story-hero">
+    <video src="millcreek.MP4" autoplay muted loop playsinline preload="metadata"></video>
+    <div class="hero-content">
+      <div class="eyebrow">The Front Yard That Started It</div>
+      <h1>Where It Started</h1>
+      <p>Before The Yard was a facility vision, it was a front-yard soccer tournament that brought friends, families, sponsors, and neighbors together around small-sided soccer.</p>
+    </div>
+  </section>
+
+  <section class="story-band">
+    <div class="story-copy">
+      <div class="section-label">Millcreek Cup</div>
+      <h2>A Backyard Idea Became a Community Proof Point</h2>
+      <p>We hosted a small-sided tournament in our front yard and raised $3,000 for the Make-A-Wish Foundation. What started as a local event became something people genuinely enjoyed, supported, and wanted to see continue.</p>
+      <p>The response showed us that Clarence has real energy for accessible, small-sided soccer. Players loved the format, families stayed to watch, and local sponsors helped make the day feel bigger than a pickup game.</p>
+      <div class="proof-grid">
+        <div class="proof-card">
+          <strong>$3,000</strong>
+          <span>Raised for Make-A-Wish</span>
+        </div>
+        <div class="proof-card">
+          <strong>3v3</strong>
+          <span>Fast, small-sided tournament format</span>
+        </div>
+        <div class="proof-card">
+          <strong>Local</strong>
+          <span>Built by and for the Clarence community</span>
+        </div>
+      </div>
+    </div>
+    <div class="photo-stack">
+      <img class="story-photo check" src="check.JPG" alt="Millcreek Cup players holding a $3,000 Make-A-Wish donation check">
+    </div>
+  </section>
+
+  <section class="blue-panel">
+    <div class="blue-panel-inner">
+      <div>
+        <div class="section-label">Why The Yard</div>
+        <h2>The Next Step Is a Permanent Home</h2>
+      </div>
+      <div>
+        <p>That front-yard tournament proved the appetite is already here. The Yard is our answer: a more permanent location for small-sided soccer, public play, youth development, charity events, and community programming that can happen again and again.</p>
+        <p class="quote">A temporary field showed what was possible. Now we want to build the place that lets it last.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="story-band">
+    <div class="photo-stack">
+      <img class="story-photo sponsors" src="sponsors.JPG" alt="Aerial view of Millcreek Cup sponsor logos and front-yard fields">
+    </div>
+    <div class="story-copy">
+      <div class="section-label">Community Support</div>
+      <h2>Sponsors, Players, and Families Made It Real</h2>
+      <p>Local sponsors helped turn a front-yard tournament into a polished community event. The experience gave us a clear blueprint for The Yard: keep the energy intimate and local, but create a facility that can support more players, more events, and more impact.</p>
+      <p>The goal is simple: give small-sided soccer a dependable home in Clarence so moments like this are not one-off memories, but a regular part of community life.</p>
+    </div>
+  </section>
+
+  <section class="cta-strip">
+    <h2>Help Us Build What Comes Next</h2>
+    <a href="index.html#contact" class="btn">Get Involved</a>
+  </section>
+</main>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+  }
+</script>
+</body>
+</html>

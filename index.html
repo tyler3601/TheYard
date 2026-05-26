@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- Version 5.0 - White Bar Fix, Apple Scroll Video, Rendering Parallax -->
+<!-- Version 5.1 - Fixed Nav Layering, Tightened Apple Scroll Video -->
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -109,7 +109,7 @@
 
   .nav-links {
     display: flex;
-    gap: 2.5rem;
+    gap: clamp(1rem, 2vw, 2.25rem);
     list-style: none;
     align-items: center;
   }
@@ -117,7 +117,7 @@
   .nav-links a {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 600;
-    font-size: 1rem;
+    font-size: clamp(0.86rem, 1vw, 1rem);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--gray-light);
@@ -127,6 +127,17 @@
   }
 
   .nav-links a:hover { opacity: 1; color: var(--blue-light); }
+
+  .nav-page {
+    color: var(--blue-light) !important;
+    opacity: 1 !important;
+  }
+
+  .nav-divider {
+    width: 1px;
+    height: 18px;
+    background: rgba(96,165,250,0.32);
+  }
 
   .nav-cta {
     background: var(--blue-accent) !important;
@@ -1261,10 +1272,10 @@
   /* ── APPLE-STYLE CINEMATIC VIDEO HERO PANEL ── */
   .cinematic {
     position: relative;
-    min-height: 260vh;
+    min-height: 240svh;
     padding: 0;
     background: #050b16;
-    overflow: clip;
+    overflow: visible;
     isolation: isolate;
   }
 
@@ -1279,7 +1290,7 @@
   }
 
   .cinematic-sticky {
-    position: sticky;
+    position: relative;
     top: 0;
     min-height: 100svh;
     display: grid;
@@ -1288,13 +1299,24 @@
     isolation: isolate;
   }
 
+  .cinematic.is-pinned .cinematic-sticky {
+    position: fixed;
+    inset: 0;
+    z-index: 2;
+  }
+
+  .cinematic.is-after .cinematic-sticky {
+    position: absolute;
+    inset: auto 0 0;
+  }
+
   .cinematic-video-wrap {
     position: absolute;
     inset: 0;
     margin: auto;
-    width: var(--cinema-width, 78vw);
-    height: var(--cinema-height, 62vh);
-    transform: translate3d(0, var(--cinema-y, 34px), 0) scale(var(--cinema-scale, 0.92));
+    width: var(--cinema-width, 94vw);
+    height: var(--cinema-height, 86vh);
+    transform: translate3d(0, var(--cinema-y, 0px), 0) scale(var(--cinema-scale, 0.96));
     opacity: var(--cinema-opacity, 0.72);
     border-radius: var(--cinema-radius, 38px);
     overflow: hidden;
@@ -1323,8 +1345,9 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center center;
     display: block;
-    filter: brightness(0.70) contrast(1.12) saturate(1.16);
+    filter: brightness(0.88) contrast(1.04) saturate(1.12);
     transform: scale(var(--cinema-video-zoom, 1.08));
     will-change: transform;
   }
@@ -1337,8 +1360,8 @@
     inset: 0;
     z-index: 1;
     background:
-      radial-gradient(circle at 50% 42%, rgba(37,99,235,0.10), transparent 34%),
-      linear-gradient(to bottom, rgba(5,11,22,0.82), rgba(5,11,22,0.06) 46%, rgba(5,11,22,0.88));
+      radial-gradient(circle at 50% 42%, rgba(37,99,235,0.06), transparent 38%),
+      linear-gradient(to bottom, rgba(5,11,22,0.52), rgba(5,11,22,0.02) 50%, rgba(5,11,22,0.14));
     pointer-events: none;
   }
 
@@ -1351,6 +1374,7 @@
     color: white;
     transform: translateY(var(--cinema-text-y, 30px)) scale(var(--cinema-text-scale, 1));
     opacity: var(--cinema-text-opacity, 1);
+    transition: opacity 0.18s linear, transform 0.18s linear;
     will-change: transform, opacity;
   }
 
@@ -1411,6 +1435,7 @@
     text-transform: uppercase;
     font-size: 0.85rem;
     white-space: nowrap;
+    transition: opacity 0.18s linear, transform 0.18s linear;
     will-change: transform, opacity;
   }
 
@@ -1433,11 +1458,8 @@
     mix-blend-mode: screen;
   }
 
-  nav, section, footer, .corner-logo, .marquee-strip {
-    position: relative;
-  }
-
   section, footer, .marquee-strip {
+    position: relative;
     z-index: 2;
   }
 
@@ -1555,7 +1577,7 @@
 
 
   /* ── RESPONSIVE ── */
-  @media (max-width: 900px) {
+  @media (max-width: 1100px) {
     .nav-links { display: none; }
     .nav-links.open {
       display: flex;
@@ -1567,6 +1589,7 @@
       gap: 1.5rem;
       border-bottom: 1px solid rgba(96,165,250,0.15);
     }
+    .nav-divider { display: none; }
     .hamburger { display: flex; }
     .mission, .contact { grid-template-columns: 1fr; gap: 3rem; }
     .programs-grid { grid-template-columns: 1fr; }
@@ -1580,8 +1603,16 @@
 
   @media (max-width: 600px) {
     .hero { padding-bottom: 6rem; }
+    .cinematic { min-height: 240svh; padding: 0; }
+    .cinematic-video-wrap {
+      width: 100vw !important;
+      height: 100svh !important;
+      border-radius: 0 !important;
+      transform: none !important;
+    }
     .mission-stats { grid-template-columns: 1fr; }
     section { padding: 5rem 5%; }
+    section.cinematic { padding: 0; }
     .corner-logo { display: none; }
   }
 </style>
@@ -1592,8 +1623,12 @@
 
 <!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">The Yard</a>
+  <a href="/index.html" class="nav-logo">The Yard</a>
   <ul class="nav-links" id="navLinks">
+    <li><a href="/index.html" class="nav-page">Home</a></li>
+    <li><a href="/where-it-started.html" class="nav-page">Where It Started</a></li>
+    <li><a href="/community-access.html" class="nav-page">Community Access</a></li>
+    <li class="nav-divider" aria-hidden="true"></li>
     <li><a href="#mission">Mission</a></li>
     <li><a href="#vision">Vision</a></li>
     <li><a href="#programs">Programs</a></li>
@@ -1944,12 +1979,12 @@
       <div class="form-row">
         <div class="form-group">
           <label for="firstName">First Name</label>
-          <input type="text" id="firstName" name="firstName" placeholder="Connor" required>
+          <input type="text" id="firstName" name="firstName" placeholder="First Name" required>
         </div>
 
         <div class="form-group">
           <label for="lastName">Last Name</label>
-          <input type="text" id="lastName" name="lastName" placeholder="Moran" required>
+          <input type="text" id="lastName" name="lastName" placeholder="Last Name" required>
         </div>
       </div>
 
@@ -2041,6 +2076,11 @@
     return Math.min(Math.max(value, min), max);
   }
 
+  function smoothstep(edge0, edge1, value) {
+    const t = clamp((value - edge0) / (edge1 - edge0), 0, 1);
+    return t * t * (3 - 2 * t);
+  }
+
   function updateCornerLogo() {
     if (!cornerLogo || !heroSection) return;
     const heroBottom = heroSection.offsetHeight - 80;
@@ -2067,22 +2107,29 @@
 
     const rect = cinematic.getBoundingClientRect();
     const travel = Math.max(1, rect.height - window.innerHeight);
-    const progress = clamp((-rect.top) / travel, 0, 1);
+    const rawProgress = clamp(-rect.top / travel, 0, 1);
+    const progress = smoothstep(0, 1, rawProgress);
+    const textExit = smoothstep(0.08, 0.72, rawProgress);
+    const cardExit = smoothstep(0.06, 0.56, rawProgress);
+    const isPinned = rect.top <= 0 && rect.bottom > window.innerHeight;
+    const isAfter = rect.bottom <= window.innerHeight;
 
     // Apple-like motion: starts as floating card, grows to immersive full-screen, then lets text drift away.
-    const width = 78 + progress * 22;
-    const height = 62 + progress * 38;
-    const scale = 0.92 + progress * 0.11;
-    const y = 34 - progress * 34;
+    const width = 94 + progress * 6;
+    const height = 86 + progress * 14;
+    const scale = 0.96 + progress * 0.07;
+    const y = 0;
     const opacity = 0.72 + progress * 0.28;
     const radius = 38 - progress * 38;
     const videoZoom = 1.08 - progress * 0.06;
-    const textY = 30 - progress * 80;
+    const textY = 30 - textExit * 80;
     const textScale = 1 + progress * 0.035;
-    const textOpacity = clamp(1 - Math.max(progress - 0.58, 0) * 2.9, 0, 1);
-    const cardY = 18 - progress * 46;
-    const cardOpacity = clamp(1 - Math.max(progress - 0.35, 0) * 2.2, 0, 1);
+    const textOpacity = 1 - textExit;
+    const cardY = 18 - cardExit * 46;
+    const cardOpacity = 1 - cardExit;
 
+    cinematic.classList.toggle('is-pinned', isPinned);
+    cinematic.classList.toggle('is-after', isAfter);
     document.documentElement.style.setProperty('--cinema-width', width.toFixed(2) + 'vw');
     document.documentElement.style.setProperty('--cinema-height', height.toFixed(2) + 'vh');
     document.documentElement.style.setProperty('--cinema-scale', scale.toFixed(3));

@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Community Access | The Yard</title>
+<meta name="description" content="The Yard plans to set aside dedicated hours for adaptive play, youth groups, nonprofit partners, and families who need welcoming access to active recreation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --blue-dark: #0f2240;
+    --blue-mid: #1a3a6b;
+    --blue-accent: #2563eb;
+    --blue-light: #60a5fa;
+    --blue-pale: #bfdbfe;
+    --gray-bg: #f1f4f8;
+    --gray: #6b7280;
+    --gray-dark: #374151;
+    --white: #ffffff;
+    --text: #111827;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    min-height: 100%;
+    overflow-x: hidden;
+    font-family: 'Barlow', sans-serif;
+    color: var(--text);
+    background: var(--gray-bg);
+  }
+
+  img { max-width: 100%; display: block; }
+
+  nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: 20;
+    height: 72px;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: rgba(15, 34, 64, 0.90);
+    backdrop-filter: blur(18px);
+    border-bottom: 1px solid rgba(96,165,250,0.25);
+    box-shadow: 0 10px 40px rgba(0,0,0,0.18);
+  }
+
+  .nav-logo {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.75rem;
+    letter-spacing: 0.04em;
+    color: var(--blue-light);
+    text-decoration: none;
+  }
+
+  .nav-links {
+    display: flex;
+    align-items: center;
+    gap: clamp(0.85rem, 1.7vw, 2rem);
+    list-style: none;
+  }
+
+  .nav-links a {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.82rem, 0.95vw, 1rem);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #e5e7eb;
+    text-decoration: none;
+    opacity: 0.82;
+  }
+
+  .nav-links a:hover,
+  .nav-links .active { opacity: 1; color: var(--blue-light); }
+
+  .nav-page {
+    color: var(--blue-light) !important;
+    opacity: 1 !important;
+  }
+
+  .nav-divider {
+    width: 1px;
+    height: 18px;
+    background: rgba(96,165,250,0.32);
+  }
+
+  .nav-cta {
+    background: var(--blue-accent);
+    color: var(--white) !important;
+    padding: 0.45rem 1.25rem;
+    border-radius: 4px;
+    opacity: 1 !important;
+  }
+
+  .hamburger {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    background: none;
+    border: none;
+    padding: 4px;
+  }
+
+  .hamburger span {
+    display: block;
+    width: 24px;
+    height: 2px;
+    background: var(--blue-light);
+    border-radius: 2px;
+  }
+
+  .access-hero {
+    min-height: 84svh;
+    display: grid;
+    align-items: end;
+    padding: 8.5rem 5% 5rem;
+    color: var(--white);
+    background:
+      linear-gradient(90deg, rgba(15,34,64,0.92), rgba(15,34,64,0.58)),
+      url("city.jpeg") center / cover;
+  }
+
+  .hero-content {
+    max-width: 940px;
+  }
+
+  .eyebrow,
+  .section-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.24em;
+    text-transform: uppercase;
+    color: var(--blue-light);
+  }
+
+  .eyebrow { margin-bottom: 1rem; }
+
+  h1 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(4rem, 10vw, 9rem);
+    line-height: 0.86;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    text-transform: uppercase;
+    text-wrap: balance;
+  }
+
+  .hero-content p {
+    max-width: 720px;
+    margin-top: 1.5rem;
+    color: rgba(255,255,255,0.88);
+    font-size: clamp(1.05rem, 2vw, 1.28rem);
+    line-height: 1.65;
+  }
+
+  section { padding: 6.5rem 5%; }
+
+  .intro {
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 4rem;
+    align-items: start;
+    background: var(--white);
+  }
+
+  .section-label {
+    color: var(--blue-accent);
+    margin-bottom: 1rem;
+    font-size: 0.82rem;
+  }
+
+  h2 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: clamp(2.7rem, 6vw, 5.2rem);
+    line-height: 0.94;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+    text-wrap: balance;
+  }
+
+  p {
+    color: var(--gray-dark);
+    font-size: 1.05rem;
+    line-height: 1.8;
+  }
+
+  .intro p + p { margin-top: 1.25rem; }
+
+  .promise-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+
+  .promise-card {
+    background: #eff6ff;
+    border: 1px solid #bfdbfe;
+    border-radius: 8px;
+    padding: 1.35rem;
+  }
+
+  .promise-card strong {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.55rem;
+    line-height: 1;
+    color: var(--blue-accent);
+    text-transform: uppercase;
+  }
+
+  .promise-card span {
+    display: block;
+    margin-top: 0.6rem;
+    color: var(--gray);
+    line-height: 1.45;
+  }
+
+  .blue-panel {
+    background:
+      radial-gradient(circle at 85% 10%, rgba(96,165,250,0.22), transparent 30rem),
+      var(--blue-dark);
+    color: var(--white);
+  }
+
+  .blue-panel-inner {
+    max-width: 1080px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 0.9fr 1.1fr;
+    gap: 4rem;
+    align-items: start;
+  }
+
+  .blue-panel h2 { color: var(--white); }
+  .blue-panel .section-label { color: var(--blue-light); }
+  .blue-panel p { color: var(--blue-pale); }
+
+  .partner-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .partner-item {
+    padding: 1.15rem 1.25rem;
+    border-radius: 8px;
+    background: rgba(255,255,255,0.06);
+    border: 1px solid rgba(96,165,250,0.22);
+  }
+
+  .partner-item h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    color: var(--white);
+    font-size: 1.3rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 0.4rem;
+  }
+
+  .partner-item p {
+    font-size: 0.98rem;
+    line-height: 1.6;
+  }
+
+  .partner-item a {
+    color: var(--blue-light);
+    font-weight: 700;
+  }
+
+  .cta-strip {
+    padding: 5rem 5%;
+    display: flex;
+    gap: 2rem;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--blue-accent);
+    color: var(--white);
+  }
+
+  .cta-strip h2 {
+    color: var(--white);
+    font-size: clamp(2.4rem, 5vw, 4.5rem);
+  }
+
+  .btn {
+    flex-shrink: 0;
+    display: inline-block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-accent);
+    background: var(--white);
+    text-decoration: none;
+    border-radius: 6px;
+    padding: 0.95rem 1.6rem;
+  }
+
+  @media (max-width: 1100px) {
+    .nav-links { display: none; }
+    .nav-links.open {
+      display: flex;
+      flex-direction: column;
+      position: fixed;
+      top: 72px;
+      left: 0;
+      right: 0;
+      padding: 2rem 5%;
+      background: rgba(15,34,64,0.98);
+      border-bottom: 1px solid rgba(96,165,250,0.15);
+    }
+    .nav-divider { display: none; }
+    .hamburger { display: flex; }
+    .intro,
+    .blue-panel-inner {
+      grid-template-columns: 1fr;
+      gap: 2.5rem;
+    }
+    .promise-grid { grid-template-columns: 1fr; }
+    .cta-strip {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .access-hero { min-height: 82svh; padding-top: 7rem; }
+    section, .cta-strip { padding: 5rem 5%; }
+  }
+</style>
+</head>
+<body>
+<nav>
+  <a href="/index.html" class="nav-logo">The Yard</a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="/index.html" class="nav-page">Home</a></li>
+    <li><a href="/where-it-started.html" class="nav-page">Where It Started</a></li>
+    <li><a href="/community-access.html" class="nav-page active">Community Access</a></li>
+    <li class="nav-divider" aria-hidden="true"></li>
+    <li><a href="/index.html#mission">Mission</a></li>
+    <li><a href="/index.html#vision">Vision</a></li>
+    <li><a href="/index.html#programs">Programs</a></li>
+    <li><a href="/index.html#facility">Facility</a></li>
+    <li><a href="/index.html#founders">Founders</a></li>
+    <li><a href="/index.html#contact" class="nav-cta">Get Involved</a></li>
+  </ul>
+  <button class="hamburger" id="hamburger" aria-label="Open menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<main>
+  <section class="access-hero">
+    <div class="hero-content">
+      <div class="eyebrow">Inclusive Recreation</div>
+      <h1>Community Access</h1>
+      <p>The Yard is being built around a simple promise: small-sided soccer should create room for more people to move, play, connect, and feel welcome.</p>
+    </div>
+  </section>
+
+  <section class="intro">
+    <div>
+      <div class="section-label">Dedicated Hours</div>
+      <h2>Set-Aside Time for Groups Who Need Access</h2>
+    </div>
+    <div>
+      <p>As The Yard grows, we want to reserve weekly or seasonal hours for children with disabilities, adaptive recreation groups, economically disadvantaged youth, and other community groups that may need help finding safe, welcoming ways to get active.</p>
+      <p>These sessions could be organized with nonprofit partners, schools, parent groups, coaches, volunteers, or local service providers. The goal is not just to open the gate, but to create predictable time where the space is intentionally ready for the people using it.</p>
+      <div class="promise-grid">
+        <div class="promise-card">
+          <strong>Adaptive Play</strong>
+          <span>Smaller groups, flexible rules, and welcoming support for different abilities.</span>
+        </div>
+        <div class="promise-card">
+          <strong>Active Kids</strong>
+          <span>Movement-focused sessions that help children build confidence and routine.</span>
+        </div>
+        <div class="promise-card">
+          <strong>Partner Hours</strong>
+          <span>Reserved blocks that nonprofits or local groups can help shape and promote.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="blue-panel">
+    <div class="blue-panel-inner">
+      <div>
+        <div class="section-label">Possible Partnerships</div>
+        <h2>Working With Groups Already Serving Families</h2>
+      </div>
+      <div class="partner-list">
+        <div class="partner-item">
+          <h3>Local Disability Service Organizations</h3>
+          <p>Erie County maintains a directory of agencies and services for people with disabilities, including recreational programs and organizations serving children, adults, and families. <a href="https://www3.erie.gov/ecopd/agencies-services" target="_blank" rel="noopener">View the directory</a>.</p>
+        </div>
+        <div class="partner-item">
+          <h3>Youth and Family Nonprofits</h3>
+          <p>The Yard could coordinate dedicated play hours with organizations that already know the needs of local children and families.</p>
+        </div>
+        <div class="partner-item">
+          <h3>Schools and Community Groups</h3>
+          <p>Simple field time, predictable scheduling, and flexible programming can help groups use soccer as a practical path into physical activity.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-strip">
+    <h2>Help Us Make Play Easier to Access</h2>
+    <a href="/index.html#contact" class="btn">Start a Conversation</a>
+  </section>
+</main>
+
+<script>
+  const hamburger = document.getElementById('hamburger');
+  const navLinks = document.getElementById('navLinks');
+
+  if (hamburger && navLinks) {
+    hamburger.addEventListener('click', () => navLinks.classList.toggle('open'));
+    navLinks.querySelectorAll('a').forEach((link) => {
+      link.addEventListener('click', () => navLinks.classList.remove('open'));
+    });
+  }
+</script>
+</body>
+</html>
