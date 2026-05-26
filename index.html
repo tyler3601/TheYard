@@ -171,7 +171,7 @@
 
   /* ── HERO ── */
   .hero {
-    min-height: 125vh;
+    min-height: 118vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -200,6 +200,7 @@
       scale(var(--hero-stage-scale, 1));
     transform-origin: 50% 50%;
     transform-style: preserve-3d;
+    opacity: var(--hero-stage-opacity, 1);
     will-change: transform, opacity;
     z-index: 2;
   }
@@ -286,10 +287,11 @@
     will-change: transform, opacity;
   }
 
-  .soccer-ball svg {
+  .soccer-ball img {
     width: 100%;
     height: 100%;
     display: block;
+    object-fit: contain;
   }
 
   .hero-badge {
@@ -1721,35 +1723,7 @@
   <div class="hero-bg"></div>
   <div class="field-hinge" aria-hidden="true"></div>
   <div class="soccer-ball" aria-hidden="true">
-    <svg viewBox="0 0 100 100" focusable="false">
-      <defs>
-        <radialGradient id="ballShade" cx="32%" cy="24%" r="72%">
-          <stop offset="0%" stop-color="#ffffff"/>
-          <stop offset="58%" stop-color="#f8fafc"/>
-          <stop offset="100%" stop-color="#cbd5e1"/>
-        </radialGradient>
-        <clipPath id="ballClip">
-          <circle cx="50" cy="50" r="47"/>
-        </clipPath>
-      </defs>
-      <circle cx="50" cy="50" r="47" fill="url(#ballShade)" stroke="#0f172a" stroke-width="3"/>
-      <g clip-path="url(#ballClip)" stroke="#0f172a" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
-        <polygon points="50,28 68,41 61,63 39,63 32,41" fill="#111827"/>
-        <polygon points="50,-3 64,13 58,28 42,28 36,13" fill="#111827"/>
-        <polygon points="93,31 98,52 82,62 68,50 72,34" fill="#111827"/>
-        <polygon points="76,92 56,101 42,88 47,70 64,69" fill="#111827"/>
-        <polygon points="24,92 36,69 53,70 58,88 44,101" fill="#111827"/>
-        <polygon points="7,31 28,34 32,50 18,62 2,52" fill="#111827"/>
-        <path d="M42 28 L32 41"/>
-        <path d="M58 28 L68 41"/>
-        <path d="M68 50 L61 63"/>
-        <path d="M39 63 L32 50"/>
-        <path d="M36 13 L18 24 L28 34"/>
-        <path d="M64 13 L82 24 L72 34"/>
-        <path d="M82 62 L76 92 L64 69"/>
-        <path d="M36 69 L24 92 L18 62"/>
-      </g>
-    </svg>
+    <img src="ball.png" alt="">
   </div>
   <svg class="field-lines" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <rect x="200" y="100" width="1040" height="700" fill="none" stroke="white" stroke-width="2"/>
@@ -2193,6 +2167,7 @@
     const stageTilt = progress * 56;
     const stageY = progress * 88;
     const stageScale = 1 - progress * 0.08;
+    const stageOpacity = 1 - smoothstep(0.22, 0.82, progress);
     const opacity = 0.05 + progress * 0.12;
     const hingeOpacity = Math.sin(progress * Math.PI) * 0.58;
     const ballReveal = smoothstep(0.08, 0.28, progress) * (1 - smoothstep(0.9, 1, progress));
@@ -2209,6 +2184,7 @@
     document.documentElement.style.setProperty('--hero-stage-tilt', stageTilt.toFixed(2) + 'deg');
     document.documentElement.style.setProperty('--hero-stage-y', stageY.toFixed(1) + 'px');
     document.documentElement.style.setProperty('--hero-stage-scale', stageScale.toFixed(3));
+    document.documentElement.style.setProperty('--hero-stage-opacity', stageOpacity.toFixed(3));
     document.documentElement.style.setProperty('--ball-opacity', ballReveal.toFixed(3));
     document.documentElement.style.setProperty('--ball-x', ballX.toFixed(1) + 'vw');
     document.documentElement.style.setProperty('--ball-y', ballY.toFixed(1) + 'px');
