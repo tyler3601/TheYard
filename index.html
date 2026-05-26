@@ -188,7 +188,7 @@
 
   /* ── HERO ── */
   .hero {
-    min-height: 148vh;
+    min-height: 116vh;
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -276,39 +276,13 @@
     inset: 0;
     opacity: var(--field-opacity, 0.05);
     transform:
-      translate3d(var(--field-x, 0vw), var(--field-y, 0px), var(--field-z, 0px))
+      translate3d(0, var(--field-y, 0px), 0)
       rotateX(var(--field-tilt, 0deg))
       scale(var(--field-scale, 1));
-    transform-origin: 50% var(--field-origin-y, 50%);
+    transform-origin: 50% 50%;
     transform-style: preserve-3d;
     will-change: transform, opacity;
     z-index: 1;
-  }
-
-  .soccer-ball {
-    position: absolute;
-    left: 0;
-    top: 60%;
-    z-index: 3;
-    width: clamp(42px, 5vw, 72px);
-    aspect-ratio: 1;
-    border-radius: 50%;
-    pointer-events: none;
-    opacity: var(--ball-opacity, 0);
-    transform:
-      translate3d(var(--ball-x, -12vw), var(--ball-y, 0px), 0)
-      rotate(var(--ball-rotate, 0deg))
-      scale(var(--ball-scale, 1));
-    transform-origin: center;
-    filter: drop-shadow(0 18px 22px rgba(5,11,22,0.38));
-    will-change: transform, opacity;
-  }
-
-  .soccer-ball img {
-    width: 100%;
-    height: 100%;
-    display: block;
-    object-fit: contain;
   }
 
   .hero-badge {
@@ -500,17 +474,7 @@
   section { padding: 7rem 5%; }
 
   .section-label {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 700;
-    font-size: 0.8rem;
-    letter-spacing: 0.25em;
-    text-transform: uppercase;
-    color: var(--blue-accent);
-    margin-bottom: 1.25rem;
-    display: flex;
-    align-items: center;
-    gap: 0.75rem;
-    animation: slideInLeft 0.6s ease both;
+    display: none;
   }
 
   .section-label::before {
@@ -714,10 +678,14 @@
 
   /* ── FUTSAL QUOTES ── */
   .futsal-quotes {
+    min-height: 112svh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
     background:
-      linear-gradient(180deg, rgba(5,11,22,0.18), rgba(5,11,22,0.40)),
-      radial-gradient(circle at 56% 38%, rgba(255,214,165,0.16), transparent 18rem),
-      url('futsal.jpeg') 44% center / cover no-repeat;
+      linear-gradient(180deg, rgba(5,11,22,0.08), rgba(5,11,22,0.28)),
+      radial-gradient(circle at 56% 38%, rgba(255,214,165,0.12), transparent 18rem),
+      url('futsal.jpeg') 48% center / cover no-repeat;
     color: var(--white);
     position: relative;
     isolation: isolate;
@@ -730,8 +698,8 @@
     inset: 0;
     z-index: -1;
     background:
-      linear-gradient(90deg, rgba(5,11,22,0.58), rgba(5,11,22,0.10) 46%, rgba(5,11,22,0.48)),
-      radial-gradient(circle at 64% 26%, rgba(255,214,165,0.18), transparent 17rem);
+      linear-gradient(90deg, rgba(5,11,22,0.42), rgba(5,11,22,0.03) 48%, rgba(5,11,22,0.34)),
+      radial-gradient(circle at 64% 26%, rgba(255,214,165,0.13), transparent 17rem);
     pointer-events: none;
   }
 
@@ -740,7 +708,7 @@
     grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.7fr);
     gap: 3rem;
     align-items: end;
-    margin-bottom: 3rem;
+    margin-bottom: clamp(8rem, 18vh, 15rem);
   }
 
   .futsal-header .section-title {
@@ -758,23 +726,23 @@
   .quote-grid {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 1rem;
+    gap: 0.8rem;
   }
 
   .quote-card {
     position: relative;
-    min-height: 310px;
+    min-height: 210px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 1.35rem;
-    border-radius: 16px;
+    padding: 1rem;
+    border-radius: 14px;
     background:
-      linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.58)),
+      linear-gradient(180deg, rgba(255,255,255,0.70), rgba(255,255,255,0.46)),
       radial-gradient(circle at 20% 0%, rgba(96,165,250,0.18), transparent 12rem);
-    border: 1px solid rgba(255,255,255,0.26);
-    box-shadow: 0 24px 70px rgba(0,0,0,0.18);
-    backdrop-filter: blur(8px);
+    border: 1px solid rgba(255,255,255,0.22);
+    box-shadow: 0 24px 70px rgba(0,0,0,0.14);
+    backdrop-filter: blur(4px);
     overflow: hidden;
     opacity: 0;
     transform: translateY(28px) scale(0.985);
@@ -802,7 +770,7 @@
     right: 1rem;
     top: -1.2rem;
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 7rem;
+    font-size: 5.4rem;
     font-weight: 900;
     line-height: 1;
     color: rgba(37,99,235,0.10);
@@ -812,15 +780,15 @@
     position: relative;
     z-index: 1;
     color: var(--blue-dark);
-    font-size: 0.94rem;
-    line-height: 1.65;
+    font-size: 0.82rem;
+    line-height: 1.5;
   }
 
   .quote-person {
     position: relative;
     z-index: 1;
-    margin-top: 1.4rem;
-    padding-top: 1rem;
+    margin-top: 1rem;
+    padding-top: 0.75rem;
     border-top: 1px solid rgba(37,99,235,0.14);
   }
 
@@ -828,7 +796,7 @@
     display: block;
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: 1.1rem;
+    font-size: 0.95rem;
     letter-spacing: 0.05em;
     text-transform: uppercase;
     color: var(--blue-accent);
@@ -838,7 +806,7 @@
     display: block;
     margin-top: 0.18rem;
     color: var(--gray);
-    font-size: 0.82rem;
+    font-size: 0.76rem;
   }
 
   .quote-source {
@@ -1540,6 +1508,20 @@
     font-size: 0.82rem;
   }
 
+  .rendering-credit {
+    margin-top: 1rem;
+    color: rgba(75,85,99,0.82);
+    text-align: center;
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .rendering-credit a {
+    color: var(--blue-accent);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(37,99,235,0.35);
+  }
+
   .rendering-image:hover { transform: none; box-shadow: none; }
 
   /* ── ANIMATIONS ── */
@@ -1665,14 +1647,6 @@
     z-index: 2;
   }
 
-  .cinematic.is-handoff .cinematic-sticky {
-    position: fixed;
-    inset: 0;
-    z-index: 30;
-    opacity: var(--cinema-handoff-opacity, 0);
-    pointer-events: none;
-  }
-
   .cinematic.is-after .cinematic-sticky {
     position: absolute;
     inset: auto 0 0;
@@ -1747,13 +1721,7 @@
   }
 
   .cinematic-eyebrow {
-    font-family: 'Barlow Condensed', sans-serif;
-    font-weight: 800;
-    letter-spacing: 0.24em;
-    text-transform: uppercase;
-    color: var(--blue-light);
-    margin-bottom: 1rem;
-    text-shadow: 0 10px 40px rgba(0,0,0,0.9);
+    display: none;
   }
 
   .cinematic-title {
@@ -1778,6 +1746,19 @@
     color: rgba(255,255,255,0.82);
     font-size: 1.12rem;
     line-height: 1.75;
+  }
+
+  .asset-credit {
+    margin-top: 1rem;
+    color: rgba(219,234,254,0.72);
+    font-size: 0.82rem;
+    line-height: 1.5;
+  }
+
+  .asset-credit a {
+    color: #bfdbfe;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(191,219,254,0.42);
   }
 
   .cinematic-glass {
@@ -1961,7 +1942,7 @@
     .hamburger { display: flex; }
     .mission, .contact { grid-template-columns: 1fr; gap: 3rem; }
     .growth-grid { grid-template-columns: 1fr; gap: 2.5rem; }
-    .futsal-header { grid-template-columns: 1fr; align-items: start; }
+    .futsal-header { grid-template-columns: 1fr; align-items: start; margin-bottom: 5rem; }
     .quote-grid { grid-template-columns: repeat(2, 1fr); }
     .programs-grid { grid-template-columns: 1fr; }
     .founders-grid { grid-template-columns: 1fr; }
@@ -1983,6 +1964,8 @@
     }
     .mission-stats { grid-template-columns: 1fr; }
     .quote-grid { grid-template-columns: 1fr; }
+    .futsal-quotes { min-height: auto; }
+    .futsal-header { margin-bottom: 3rem; }
     section { padding: 5rem 5%; }
     section.cinematic { padding: 0; }
     .corner-logo { display: none; }
@@ -2024,9 +2007,6 @@
 <!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
-  <div class="soccer-ball" aria-hidden="true">
-    <img src="ball.png" alt="">
-  </div>
   <svg class="field-lines" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <rect x="200" y="100" width="1040" height="700" fill="none" stroke="white" stroke-width="2"/>
     <line x1="720" y1="100" x2="720" y2="800" stroke="white" stroke-width="1.5"/>
@@ -2069,12 +2049,9 @@
       <div class="cinematic-eyebrow">A New Home for the Game</div>
       <h2 class="cinematic-title">See The Yard<span>Take Shape</span></h2>
       <p class="cinematic-sub">A cinematic glimpse of the space, energy, and community we are building — small-sided soccer with a big-picture mission.</p>
+      <p class="asset-credit">Video reference courtesy of <a href="https://www.urbansoccerpark.com" target="_blank" rel="noopener">Urban Soccer Park</a>.</p>
     </div>
 
-    <div class="cinematic-glass" id="cinematicGlass">
-      <span class="cinematic-dot"></span>
-      Scroll to enter the vision
-    </div>
   </div>
 </section>
 
@@ -2210,32 +2187,32 @@
   </div>
   <div class="programs-grid">
     <div class="program-card reveal">
-      <span class="program-icon"><svg viewBox="0 0 24 24"><path d="M4 7h16M4 17h16M8 7v10M16 7v10"/><circle cx="12" cy="12" r="2.5"/></svg></span>
+      <span class="program-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.2l3.2 2.3-1.2 3.8h-4l-1.2-3.8L12 7.2z"/><path d="M12 3.5v3.7M4.8 8.2l4 1.3M19.2 8.2l-4 1.3M7.5 19l2.5-5.7M16.5 19L14 13.3"/></svg></span>
       <h3>Open Public Play</h3>
       <p>Drop in anytime during posted hours for free pickup soccer and casual recreation. No sign-ups, no teams required — just show up and play.</p>
     </div>
     <div class="program-card reveal">
-      <span class="program-icon"><svg viewBox="0 0 24 24"><path d="M12 3v18M5 8c3-3 11-3 14 0M5 16c3 3 11 3 14 0"/></svg></span>
+      <span class="program-icon"><svg viewBox="0 0 24 24"><path d="M10 4h4l2.2 12H7.8L10 4z"/><path d="M8.8 10h6.4"/><path d="M6.5 16h11l2 3H4.5l2-3z"/></svg></span>
       <h3>Youth Clinics</h3>
       <p>Structured developmental sessions focused on technical skills, creativity, and decision-making in a fun, low-pressure small-sided environment.</p>
     </div>
     <div class="program-card reveal">
-      <span class="program-icon"><svg viewBox="0 0 24 24"><path d="M12 21s7-4.4 7-11a7 7 0 0 0-14 0c0 6.6 7 11 7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span>
+      <span class="program-icon"><svg viewBox="0 0 24 24"><path d="M8 5h8v3a4 4 0 0 1-8 0V5z"/><path d="M8 7H5.5a2.5 2.5 0 0 0 2.5 2.5"/><path d="M16 7h2.5A2.5 2.5 0 0 1 16 9.5"/><path d="M12 12v4"/><path d="M9 20h6"/><path d="M10 16h4v4h-4z"/></svg></span>
       <h3>Charity Tournaments</h3>
       <p>Community-wide events and fundraising tournaments benefiting local and national causes. Soccer as a platform for giving back.</p>
     </div>
     <div class="program-card reveal">
-      <span class="program-icon"><svg viewBox="0 0 24 24"><path d="M4 19V7l8-4 8 4v12"/><path d="M8 19v-7h8v7"/></svg></span>
+      <span class="program-icon"><svg viewBox="0 0 24 24"><rect x="4" y="7" width="16" height="10"/><path d="M7 17V9h10v8"/><path d="M4 7l3 2M20 7l-3 2M7 17l3-3M17 17l-3-3M10 9l7 8M14 9l-7 8"/></svg></span>
       <h3>Collegiate & Adult Leagues</h3>
       <p>Recreational leagues for college students and adults across the region, keeping players active and connected to the game they love.</p>
     </div>
     <div class="program-card reveal">
-      <span class="program-icon"><svg viewBox="0 0 24 24"><path d="M8 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M16 20a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"/><path d="M12 8h4M8 12v4"/></svg></span>
+      <span class="program-icon"><svg viewBox="0 0 24 24"><rect x="5" y="6" width="14" height="14" rx="2"/><path d="M8 4v4M16 4v4M5 10h14"/><path d="M8.5 13.5h1M12 13.5h1M15.5 13.5h1M8.5 17h1M12 17h1M15.5 17h1"/></svg></span>
       <h3>Adaptive Recreation</h3>
       <p>Dedicated programming and designated play times for children and adults with disabilities — because The Yard is truly for everyone.</p>
     </div>
     <div class="program-card reveal">
-      <span class="program-icon"><svg viewBox="0 0 24 24"><path d="M4 12h16"/><path d="M12 4v16"/><path d="M6.5 6.5l11 11"/><path d="M17.5 6.5l-11 11"/></svg></span>
+      <span class="program-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3"/><path d="M7 20a5 5 0 0 1 10 0"/><circle cx="5.5" cy="10.5" r="2.3"/><path d="M2.5 19a4 4 0 0 1 5.5-3.7"/><circle cx="18.5" cy="10.5" r="2.3"/><path d="M21.5 19a4 4 0 0 0-5.5-3.7"/></svg></span>
       <h3>Community Events</h3>
       <p>Gatherings, watch parties, and neighborhood events that bring families together and strengthen local community bonds.</p>
     </div>
@@ -2322,6 +2299,7 @@
       <img src="rendering2.png" alt="The Yard Facility Rendering" class="rendering-image">
       <div class="rendering-chip">Concept Rendering</div>
     </div>
+    <p class="rendering-credit">Concept rendering courtesy of <a href="https://www.urbansoccerpark.com" target="_blank" rel="noopener">Urban Soccer Park</a>.</p>
   </div>
 </section>
 
@@ -2543,52 +2521,25 @@
     if (!heroSection) return;
     const heroTravel = Math.max(1, heroSection.offsetHeight - window.innerHeight);
     const progress = smoothstep(0, 1, clamp(window.scrollY / heroTravel, 0, 1));
-    const flyThrough = smoothstep(0.54, 1, progress);
-    const finalFade = smoothstep(0.82, 1, progress);
-    const handoff = smoothstep(0.64, 1, progress);
-    const tilt = progress * 84;
-    const x = 0;
-    const y = progress * 96 + flyThrough * 560;
-    const z = flyThrough * 430;
-    const scale = 1 + progress * 0.26 + flyThrough * 3.65;
-    const originY = 50 + flyThrough * 16;
-    const stageTilt = progress * 56;
-    const stageY = progress * 88;
-    const stageScale = 1 - progress * 0.08;
-    const stageOpacity = 1 - smoothstep(0.2, 0.58, progress);
-    const opacity = (0.05 + progress * 0.17) * (1 - finalFade * 0.82);
-    const transitionOpacity = handoff * 0.44;
-    const cinemaHandoffOpacity = handoff;
-    const ballReveal = smoothstep(0.08, 0.28, progress) * (1 - smoothstep(0.9, 1, progress));
-    const ballX = -10 + progress * 122;
-    const ballY = Math.sin(progress * Math.PI) * -34 + progress * 74;
-    const ballRotate = progress * 860;
-    const ballScale = 0.82 + progress * 0.28;
+    const tilt = progress * 54;
+    const y = progress * 95;
+    const scale = 1 + progress * 0.18;
+    const stageTilt = progress * 28;
+    const stageY = progress * 54;
+    const stageScale = 1 - progress * 0.045;
+    const stageOpacity = 1 - smoothstep(0.32, 0.94, progress);
+    const opacity = 0.05 + progress * 0.08;
+    const transitionOpacity = smoothstep(0.78, 1, progress) * 0.18;
 
     document.documentElement.style.setProperty('--field-tilt', tilt.toFixed(2) + 'deg');
-    document.documentElement.style.setProperty('--field-x', x.toFixed(1) + 'vw');
     document.documentElement.style.setProperty('--field-y', y.toFixed(1) + 'px');
-    document.documentElement.style.setProperty('--field-z', z.toFixed(1) + 'px');
     document.documentElement.style.setProperty('--field-scale', scale.toFixed(3));
-    document.documentElement.style.setProperty('--field-origin-y', originY.toFixed(1) + '%');
     document.documentElement.style.setProperty('--field-opacity', opacity.toFixed(3));
     document.documentElement.style.setProperty('--hero-transition-opacity', transitionOpacity.toFixed(3));
-    document.documentElement.style.setProperty('--cinema-handoff-opacity', cinemaHandoffOpacity.toFixed(3));
     document.documentElement.style.setProperty('--hero-stage-tilt', stageTilt.toFixed(2) + 'deg');
     document.documentElement.style.setProperty('--hero-stage-y', stageY.toFixed(1) + 'px');
     document.documentElement.style.setProperty('--hero-stage-scale', stageScale.toFixed(3));
     document.documentElement.style.setProperty('--hero-stage-opacity', stageOpacity.toFixed(3));
-    document.documentElement.style.setProperty('--ball-opacity', ballReveal.toFixed(3));
-    document.documentElement.style.setProperty('--ball-x', ballX.toFixed(1) + 'vw');
-    document.documentElement.style.setProperty('--ball-y', ballY.toFixed(1) + 'px');
-    document.documentElement.style.setProperty('--ball-rotate', ballRotate.toFixed(1) + 'deg');
-    document.documentElement.style.setProperty('--ball-scale', ballScale.toFixed(3));
-
-    const realCinema = document.querySelector('.cinematic');
-    if (realCinema) {
-      const shouldHandoff = handoff > 0.01 && window.scrollY < heroSection.offsetHeight;
-      realCinema.classList.toggle('is-handoff', shouldHandoff);
-    }
   }
 
   function updateCornerLogo() {
