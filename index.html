@@ -680,6 +680,130 @@
     border-bottom: 1px solid rgba(191,219,254,0.45);
   }
 
+  /* ── FUTSAL QUOTES ── */
+  .futsal-quotes {
+    background:
+      linear-gradient(180deg, rgba(5,11,22,0.50), rgba(5,11,22,0.72)),
+      radial-gradient(circle at 18% 15%, rgba(96,165,250,0.26), transparent 24rem),
+      url('futsal.jpeg') center center / cover no-repeat;
+    color: var(--white);
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+  }
+
+  .futsal-quotes::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background:
+      linear-gradient(90deg, rgba(5,11,22,0.86), rgba(5,11,22,0.44) 48%, rgba(5,11,22,0.82)),
+      radial-gradient(circle at 68% 22%, rgba(255,214,165,0.24), transparent 18rem);
+    pointer-events: none;
+  }
+
+  .futsal-header {
+    display: grid;
+    grid-template-columns: minmax(0, 0.95fr) minmax(280px, 0.7fr);
+    gap: 3rem;
+    align-items: end;
+    margin-bottom: 3rem;
+  }
+
+  .futsal-header .section-title {
+    color: var(--white);
+    margin-top: 0.5rem;
+    text-shadow: 0 18px 70px rgba(0,0,0,0.6);
+  }
+
+  .futsal-intro {
+    color: rgba(219,234,254,0.9);
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+
+  .quote-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1rem;
+  }
+
+  .quote-card {
+    position: relative;
+    min-height: 310px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 1.35rem;
+    border-radius: 16px;
+    background:
+      linear-gradient(180deg, rgba(255,255,255,0.90), rgba(255,255,255,0.76)),
+      radial-gradient(circle at 20% 0%, rgba(96,165,250,0.18), transparent 12rem);
+    border: 1px solid rgba(255,255,255,0.32);
+    box-shadow: 0 24px 70px rgba(0,0,0,0.22);
+    backdrop-filter: blur(14px);
+    overflow: hidden;
+  }
+
+  .quote-card::before {
+    content: '"';
+    position: absolute;
+    right: 1rem;
+    top: -1.2rem;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 7rem;
+    font-weight: 900;
+    line-height: 1;
+    color: rgba(37,99,235,0.10);
+  }
+
+  .quote-card blockquote {
+    position: relative;
+    z-index: 1;
+    color: var(--blue-dark);
+    font-size: 0.94rem;
+    line-height: 1.65;
+  }
+
+  .quote-person {
+    position: relative;
+    z-index: 1;
+    margin-top: 1.4rem;
+    padding-top: 1rem;
+    border-top: 1px solid rgba(37,99,235,0.14);
+  }
+
+  .quote-person strong {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 900;
+    font-size: 1.1rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--blue-accent);
+  }
+
+  .quote-person span {
+    display: block;
+    margin-top: 0.18rem;
+    color: var(--gray);
+    font-size: 0.82rem;
+  }
+
+  .quote-source {
+    margin-top: 1.4rem;
+    color: rgba(219,234,254,0.86);
+    font-size: 0.86rem;
+    line-height: 1.6;
+  }
+
+  .quote-source a {
+    color: #bfdbfe;
+    text-decoration: none;
+    border-bottom: 1px solid rgba(191,219,254,0.45);
+  }
+
   /* ── PROGRAMS ── */
   .programs { background: var(--gray-bg); }
 
@@ -1787,6 +1911,8 @@
     .hamburger { display: flex; }
     .mission, .contact { grid-template-columns: 1fr; gap: 3rem; }
     .growth-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+    .futsal-header { grid-template-columns: 1fr; align-items: start; }
+    .quote-grid { grid-template-columns: repeat(2, 1fr); }
     .programs-grid { grid-template-columns: 1fr; }
     .founders-grid { grid-template-columns: 1fr; }
     .facility-grid { grid-template-columns: 1fr; gap: 2rem; }
@@ -1806,6 +1932,7 @@
       transform: none !important;
     }
     .mission-stats { grid-template-columns: 1fr; }
+    .quote-grid { grid-template-columns: 1fr; }
     section { padding: 5rem 5%; }
     section.cinematic { padding: 0; }
     .corner-logo { display: none; }
@@ -1827,6 +1954,7 @@
     <li><a href="#mission">Mission</a></li>
     <li><a href="#vision">Vision</a></li>
     <li><a href="#growth">Growth</a></li>
+    <li><a href="#small-sided">Why It Works</a></li>
     <li><a href="#programs">Programs</a></li>
     <li><a href="#facility">Facility</a></li>
     <li><a href="#founders">Founders</a></li>
@@ -1977,6 +2105,48 @@
       </div>
     </div>
   </div>
+</section>
+
+<!-- FUTSAL QUOTES -->
+<section class="futsal-quotes" id="small-sided">
+  <div class="futsal-header reveal">
+    <div>
+      <div class="section-label">Why Small-Sided Works</div>
+      <h2 class="section-title">The Game Teaches<br>Through Touches</h2>
+    </div>
+    <p class="futsal-intro">The Yard is built around the same idea that shaped some of the world's best players: small spaces create faster thinking, better feet, closer control, and more joy on the ball.</p>
+  </div>
+  <div class="quote-grid">
+    <article class="quote-card reveal">
+      <blockquote>As a little boy in Argentina, I played futsal on the streets and for my club. It was tremendous fun, and it really helped me become who I am today.</blockquote>
+      <div class="quote-person">
+        <strong>Lionel Messi</strong>
+        <span>Argentina international</span>
+      </div>
+    </article>
+    <article class="quote-card reveal">
+      <blockquote>Futsal helps a lot because you need to think quickly. It's a more dynamic game and today in Europe, there's not much space so you need to think quicker.</blockquote>
+      <div class="quote-person">
+        <strong>Neymar Jr</strong>
+        <span>Brazil international</span>
+      </div>
+    </article>
+    <article class="quote-card reveal">
+      <blockquote>I needed extremely good feet, because you're always attempting to beat opponents in the minimum of space. I loved the challenge of playing on such a small pitch.</blockquote>
+      <div class="quote-person">
+        <strong>Ronaldo</strong>
+        <span>Retired Brazil international</span>
+      </div>
+    </article>
+    <article class="quote-card reveal">
+      <blockquote>The small playing area helped me improve my close control, and whenever I played futsal I felt free. If it wasn't for futsal, I wouldn't be the player I am today.</blockquote>
+      <div class="quote-person">
+        <strong>Cristiano Ronaldo</strong>
+        <span>Portugal international</span>
+      </div>
+    </article>
+  </div>
+  <p class="quote-source reveal">Player quotes via UEFA, <a href="https://www.uefa.com/news-media/news/0262-108f7a6f0ca6-62e1f87ba866-1000--futsal-and-me-top-footballers-share-their-love/" target="_blank" rel="noopener">"Futsal and me: top footballers share their love"</a>.</p>
 </section>
 
 <!-- PROGRAMS -->
