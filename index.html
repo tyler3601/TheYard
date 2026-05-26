@@ -90,7 +90,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 5%;
+    padding: 0 clamp(1.5rem, 3vw, 5%);
     height: 72px;
     background: rgba(15, 34, 64, 0.86);
     backdrop-filter: blur(18px);
@@ -105,25 +105,34 @@
     letter-spacing: 0.04em;
     color: var(--blue-light);
     text-decoration: none;
+    flex: 0 0 auto;
   }
 
   .nav-links {
     display: flex;
-    gap: clamp(1rem, 2vw, 2.25rem);
+    gap: clamp(0.65rem, 1.35vw, 1.7rem);
     list-style: none;
     align-items: center;
+    flex: 1 1 auto;
+    justify-content: flex-end;
+    min-width: 0;
+  }
+
+  .nav-links li {
+    flex: 0 0 auto;
   }
 
   .nav-links a {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 600;
-    font-size: clamp(0.86rem, 1vw, 1rem);
+    font-size: clamp(0.78rem, 0.88vw, 0.96rem);
     letter-spacing: 0.08em;
     text-transform: uppercase;
     color: var(--gray-light);
     text-decoration: none;
     opacity: 0.8;
     transition: opacity 0.2s, color 0.2s;
+    white-space: nowrap;
   }
 
   .nav-links a:hover { opacity: 1; color: var(--blue-light); }
@@ -146,6 +155,14 @@
     border-radius: 4px;
     opacity: 1 !important;
     transition: background 0.2s !important;
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+    min-width: 118px;
+    white-space: nowrap !important;
+    word-break: keep-all;
+    overflow: visible;
+    line-height: 1 !important;
   }
 
   .nav-cta:hover { background: var(--blue) !important; color: var(--white) !important; }
@@ -349,6 +366,11 @@
     animation: fadeUp 0.8s 0.45s ease both;
   }
 
+  .hero-actions .btn-primary,
+  .hero-actions .btn-outline {
+    min-width: 176px;
+  }
+
   .btn-primary {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
@@ -363,7 +385,12 @@
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 1;
     box-shadow: 0 8px 24px rgba(37, 99, 235, 0.3);
   }
 
@@ -387,7 +414,12 @@
     text-decoration: none;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.34,1.56,0.64,1);
-    display: inline-block;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    white-space: nowrap;
+    line-height: 1;
   }
 
   .btn-outline:hover { 
@@ -683,9 +715,9 @@
   /* ── FUTSAL QUOTES ── */
   .futsal-quotes {
     background:
-      linear-gradient(180deg, rgba(5,11,22,0.50), rgba(5,11,22,0.72)),
-      radial-gradient(circle at 18% 15%, rgba(96,165,250,0.26), transparent 24rem),
-      url('futsal.jpeg') center center / cover no-repeat;
+      linear-gradient(180deg, rgba(5,11,22,0.18), rgba(5,11,22,0.40)),
+      radial-gradient(circle at 56% 38%, rgba(255,214,165,0.16), transparent 18rem),
+      url('futsal.jpeg') 44% center / cover no-repeat;
     color: var(--white);
     position: relative;
     isolation: isolate;
@@ -698,8 +730,8 @@
     inset: 0;
     z-index: -1;
     background:
-      linear-gradient(90deg, rgba(5,11,22,0.86), rgba(5,11,22,0.44) 48%, rgba(5,11,22,0.82)),
-      radial-gradient(circle at 68% 22%, rgba(255,214,165,0.24), transparent 18rem);
+      linear-gradient(90deg, rgba(5,11,22,0.58), rgba(5,11,22,0.10) 46%, rgba(5,11,22,0.48)),
+      radial-gradient(circle at 64% 26%, rgba(255,214,165,0.18), transparent 17rem);
     pointer-events: none;
   }
 
@@ -738,12 +770,30 @@
     padding: 1.35rem;
     border-radius: 16px;
     background:
-      linear-gradient(180deg, rgba(255,255,255,0.90), rgba(255,255,255,0.76)),
+      linear-gradient(180deg, rgba(255,255,255,0.78), rgba(255,255,255,0.58)),
       radial-gradient(circle at 20% 0%, rgba(96,165,250,0.18), transparent 12rem);
-    border: 1px solid rgba(255,255,255,0.32);
-    box-shadow: 0 24px 70px rgba(0,0,0,0.22);
-    backdrop-filter: blur(14px);
+    border: 1px solid rgba(255,255,255,0.26);
+    box-shadow: 0 24px 70px rgba(0,0,0,0.18);
+    backdrop-filter: blur(8px);
     overflow: hidden;
+    opacity: 0;
+    transform: translateY(28px) scale(0.985);
+    transition:
+      opacity 0.85s ease,
+      transform 0.85s cubic-bezier(0.2,0.8,0.2,1);
+  }
+
+  .futsal-quotes.quotes-active .quote-card {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  .futsal-quotes.quotes-active .quote-card:nth-child(2) { transition-delay: 0.08s; }
+  .futsal-quotes.quotes-active .quote-card:nth-child(3) { transition-delay: 0.16s; }
+  .futsal-quotes.quotes-active .quote-card:nth-child(4) { transition-delay: 0.24s; }
+
+  .futsal-quotes:not(.quotes-active) .quote-source {
+    opacity: 0;
   }
 
   .quote-card::before {
@@ -1865,7 +1915,7 @@
     filter: saturate(1.12) contrast(1.05);
   }
 
-  .btn-primary, .btn-outline, .nav-cta {
+  .btn-primary, .btn-outline {
     isolation: isolate;
   }
 
@@ -1958,7 +2008,7 @@
     <li><a href="#programs">Programs</a></li>
     <li><a href="#facility">Facility</a></li>
     <li><a href="#founders">Founders</a></li>
-    <li><a href="#contact" class="nav-cta">Get Involved</a></li>
+    <li><a href="#contact" class="nav-cta">Get&nbsp;Involved</a></li>
   </ul>
   <button class="hamburger" id="hamburger" aria-label="Open menu">
     <span></span><span></span><span></span>
@@ -2108,7 +2158,7 @@
 </section>
 
 <!-- FUTSAL QUOTES -->
-<section class="futsal-quotes" id="small-sided">
+<section class="futsal-quotes reveal" id="small-sided">
   <div class="futsal-header reveal">
     <div>
       <div class="section-label">Why Small-Sided Works</div>
@@ -2455,6 +2505,20 @@
   }, { threshold: 0.12 });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+  const futsalSection = document.getElementById('small-sided');
+
+  function updateFutsalQuotes() {
+    if (!futsalSection) return;
+    const rect = futsalSection.getBoundingClientRect();
+    const trigger = window.innerHeight * 0.42;
+    const isActive = rect.top < trigger && rect.bottom > window.innerHeight * 0.25;
+    futsalSection.classList.toggle('quotes-active', isActive);
+  }
+
+  window.addEventListener('scroll', updateFutsalQuotes, { passive: true });
+  window.addEventListener('resize', updateFutsalQuotes);
+  updateFutsalQuotes();
 
   // Corner logo: tucked left, disappears after the first hero section and during the cinematic panel
   const cornerLogo = document.getElementById('cornerLogo');
