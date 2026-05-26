@@ -282,32 +282,14 @@
       rotate(var(--ball-rotate, 0deg))
       scale(var(--ball-scale, 1));
     transform-origin: center;
-    background:
-      radial-gradient(circle at 35% 25%, rgba(255,255,255,0.98), rgba(255,255,255,0.70) 16%, transparent 30%),
-      conic-gradient(from 18deg at 50% 50%,
-        #111827 0 11%, #f8fafc 11% 21%,
-        #111827 21% 32%, #f8fafc 32% 43%,
-        #111827 43% 54%, #f8fafc 54% 65%,
-        #111827 65% 76%, #f8fafc 76% 88%,
-        #111827 88% 100%);
-    box-shadow:
-      inset -8px -10px 16px rgba(15,23,42,0.26),
-      inset 7px 8px 14px rgba(255,255,255,0.72),
-      0 22px 30px rgba(5,11,22,0.34);
+    filter: drop-shadow(0 18px 22px rgba(5,11,22,0.38));
     will-change: transform, opacity;
   }
 
-  .soccer-ball::after {
-    content: '';
-    position: absolute;
-    inset: 12%;
-    border-radius: inherit;
-    background:
-      linear-gradient(36deg, transparent 42%, rgba(15,23,42,0.72) 43% 46%, transparent 47%),
-      linear-gradient(108deg, transparent 42%, rgba(15,23,42,0.72) 43% 46%, transparent 47%),
-      linear-gradient(180deg, transparent 42%, rgba(15,23,42,0.72) 43% 46%, transparent 47%),
-      radial-gradient(circle at 50% 50%, #111827 0 27%, transparent 28%);
-    clip-path: polygon(50% 0%, 96% 35%, 79% 91%, 21% 91%, 4% 35%);
+  .soccer-ball svg {
+    width: 100%;
+    height: 100%;
+    display: block;
   }
 
   .hero-badge {
@@ -1738,7 +1720,37 @@
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="field-hinge" aria-hidden="true"></div>
-  <div class="soccer-ball" aria-hidden="true"></div>
+  <div class="soccer-ball" aria-hidden="true">
+    <svg viewBox="0 0 100 100" focusable="false">
+      <defs>
+        <radialGradient id="ballShade" cx="32%" cy="24%" r="72%">
+          <stop offset="0%" stop-color="#ffffff"/>
+          <stop offset="58%" stop-color="#f8fafc"/>
+          <stop offset="100%" stop-color="#cbd5e1"/>
+        </radialGradient>
+        <clipPath id="ballClip">
+          <circle cx="50" cy="50" r="47"/>
+        </clipPath>
+      </defs>
+      <circle cx="50" cy="50" r="47" fill="url(#ballShade)" stroke="#0f172a" stroke-width="3"/>
+      <g clip-path="url(#ballClip)" stroke="#0f172a" stroke-width="3.2" stroke-linejoin="round" stroke-linecap="round">
+        <polygon points="50,28 68,41 61,63 39,63 32,41" fill="#111827"/>
+        <polygon points="50,-3 64,13 58,28 42,28 36,13" fill="#111827"/>
+        <polygon points="93,31 98,52 82,62 68,50 72,34" fill="#111827"/>
+        <polygon points="76,92 56,101 42,88 47,70 64,69" fill="#111827"/>
+        <polygon points="24,92 36,69 53,70 58,88 44,101" fill="#111827"/>
+        <polygon points="7,31 28,34 32,50 18,62 2,52" fill="#111827"/>
+        <path d="M42 28 L32 41"/>
+        <path d="M58 28 L68 41"/>
+        <path d="M68 50 L61 63"/>
+        <path d="M39 63 L32 50"/>
+        <path d="M36 13 L18 24 L28 34"/>
+        <path d="M64 13 L82 24 L72 34"/>
+        <path d="M82 62 L76 92 L64 69"/>
+        <path d="M36 69 L24 92 L18 62"/>
+      </g>
+    </svg>
+  </div>
   <svg class="field-lines" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
     <rect x="200" y="100" width="1040" height="700" fill="none" stroke="white" stroke-width="2"/>
     <line x1="720" y1="100" x2="720" y2="800" stroke="white" stroke-width="1.5"/>
