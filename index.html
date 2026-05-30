@@ -4,6 +4,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="referrer" content="strict-origin-when-cross-origin">
 <title>The Yard — Community Soccer & Recreation | Western New York</title>
 <meta name="description" content="The Yard is a 501(c)(3) nonprofit bringing community-centered soccer and recreation to Western New York. Free public play, youth development, and inclusive programming.">
 <link rel="icon" type="image/png" href="/favicon.png">
@@ -831,6 +832,142 @@
     color: #bfdbfe;
     text-decoration: none;
     border-bottom: 1px solid rgba(191,219,254,0.45);
+  }
+
+  /* ── PICKLEBALL COMPARISON ── */
+  .pickleball-moment {
+    background:
+      radial-gradient(circle at 82% 16%, rgba(96,165,250,0.13), transparent 25rem),
+      linear-gradient(180deg, #f8fbff 0%, #edf5ff 100%);
+    overflow: hidden;
+  }
+
+  .pickleball-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    gap: 4rem;
+    align-items: center;
+  }
+
+  .pickleball-copy .section-title {
+    color: var(--blue-dark);
+    margin-bottom: 1.4rem;
+  }
+
+  .pickleball-copy p {
+    color: var(--gray);
+    font-size: 1.05rem;
+    line-height: 1.78;
+    margin-bottom: 1rem;
+  }
+
+  .pickleball-points {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.75rem;
+    margin-top: 1.8rem;
+  }
+
+  .pickleball-point {
+    border-radius: 12px;
+    padding: 1rem;
+    background: rgba(255,255,255,0.82);
+    border: 1px solid rgba(96,165,250,0.18);
+    box-shadow: 0 16px 40px rgba(15,34,64,0.07);
+  }
+
+  .pickleball-point strong {
+    display: block;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.35rem;
+    line-height: 1;
+    color: var(--blue-accent);
+    text-transform: uppercase;
+    margin-bottom: 0.45rem;
+  }
+
+  .pickleball-point span {
+    color: var(--gray);
+    font-size: 0.82rem;
+    line-height: 1.45;
+  }
+
+  .pickleball-visual {
+    position: relative;
+    min-height: 520px;
+  }
+
+  .comparison-photo {
+    position: absolute;
+    overflow: hidden;
+    border-radius: 16px;
+    box-shadow: 0 32px 90px rgba(15,34,64,0.22);
+    border: 1px solid rgba(255,255,255,0.72);
+    background: var(--blue-dark);
+  }
+
+  .comparison-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+
+  .comparison-photo.futsal {
+    left: 0;
+    top: 0;
+    width: 74%;
+    height: 62%;
+  }
+
+  .comparison-photo.pickleball {
+    right: 0;
+    bottom: 0;
+    width: 58%;
+    height: 52%;
+  }
+
+  .comparison-tag {
+    position: absolute;
+    left: 14px;
+    bottom: 14px;
+    padding: 0.5rem 0.72rem;
+    border-radius: 999px;
+    background: rgba(15,34,64,0.72);
+    color: var(--white);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    backdrop-filter: blur(14px);
+  }
+
+  .comparison-card {
+    position: absolute;
+    right: 8%;
+    top: 26%;
+    max-width: 290px;
+    border-radius: 14px;
+    padding: 1.25rem;
+    background: rgba(255,255,255,0.9);
+    border: 1px solid rgba(96,165,250,0.22);
+    box-shadow: 0 24px 70px rgba(15,34,64,0.16);
+  }
+
+  .comparison-card h3 {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 1.65rem;
+    line-height: 0.95;
+    text-transform: uppercase;
+    color: var(--blue-dark);
+    margin-bottom: 0.65rem;
+  }
+
+  .comparison-card p {
+    color: var(--gray);
+    font-size: 0.9rem;
+    line-height: 1.55;
   }
 
   /* ── PROGRAMS ── */
@@ -1667,11 +1804,11 @@
     position: absolute;
     inset: 0;
     margin: auto;
-    width: var(--cinema-width, 94vw);
-    height: var(--cinema-height, 86vh);
+    width: var(--cinema-width, 90vw);
+    height: var(--cinema-height, 78vh);
     transform: translate3d(0, var(--cinema-y, 0px), 0) scale(var(--cinema-scale, 0.96));
     opacity: var(--cinema-opacity, 0.72);
-    border-radius: var(--cinema-radius, 38px);
+    border-radius: var(--cinema-radius, 30px);
     overflow: hidden;
     box-shadow:
       0 55px 160px rgba(0, 0, 0, 0.62),
@@ -1687,21 +1824,26 @@
     content: '';
     position: absolute;
     inset: 0;
+    z-index: 3;
     pointer-events: none;
-    background:
-      linear-gradient(90deg, rgba(255,255,255,0.09), transparent 18%, transparent 82%, rgba(255,255,255,0.08)),
-      radial-gradient(circle at var(--mouse-x, 50%) var(--mouse-y, 45%), rgba(96,165,250,0.18), transparent 28rem);
-    mix-blend-mode: screen;
+    background: rgba(219, 234, 254, 0.96);
+    opacity: var(--cinema-flash-opacity, 0);
+    transition: opacity 0.14s ease-out;
   }
 
   .cinematic-video {
     width: 100%;
     height: 100%;
-    object-fit: cover;
-    object-position: center center;
+    position: relative;
+    z-index: 0;
     display: block;
-    filter: brightness(0.88) contrast(1.04) saturate(1.12);
-    transform: scale(var(--cinema-video-zoom, 1.08));
+    border: 0;
+    object-fit: cover;
+    filter: brightness(0.9) contrast(1.04) saturate(1.08);
+    opacity: var(--cinema-video-alpha, 1);
+    transform: scale(var(--cinema-video-zoom, 1.04));
+    pointer-events: none;
+    transition: opacity 0.18s ease-out;
     will-change: transform;
   }
 
@@ -1719,13 +1861,15 @@
   }
 
   .cinematic-copy {
-    position: relative;
+    position: absolute;
+    left: 50%;
+    bottom: clamp(1rem, 3vh, 2rem);
     z-index: 2;
     max-width: 980px;
     padding: 0 5%;
     text-align: center;
     color: white;
-    transform: translateY(var(--cinema-text-y, 30px)) scale(var(--cinema-text-scale, 1));
+    transform: translate3d(-50%, var(--cinema-text-y, 30px), 0) scale(var(--cinema-text-scale, 1));
     opacity: var(--cinema-text-opacity, 1);
     transition: opacity 0.18s linear, transform 0.18s linear;
     will-change: transform, opacity;
@@ -1760,9 +1904,9 @@
   }
 
   .asset-credit {
-    margin-top: 1rem;
+    margin-top: 0;
     color: rgba(219,234,254,0.72);
-    font-size: 0.82rem;
+    font-size: 0.72rem;
     line-height: 1.5;
   }
 
@@ -1955,6 +2099,8 @@
     .growth-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     .futsal-header { grid-template-columns: 1fr; align-items: start; margin-bottom: 5rem; }
     .quote-grid { grid-template-columns: repeat(2, 1fr); }
+    .pickleball-layout { grid-template-columns: 1fr; gap: 3rem; }
+    .pickleball-visual { min-height: 460px; }
     .programs-grid { grid-template-columns: 1fr; }
     .founders-grid { grid-template-columns: 1fr; }
     .facility-grid { grid-template-columns: 1fr; gap: 2rem; }
@@ -1977,6 +2123,18 @@
     .quote-grid { grid-template-columns: 1fr; }
     .futsal-quotes { min-height: auto; }
     .futsal-header { margin-bottom: 3rem; }
+    .pickleball-points { grid-template-columns: 1fr; }
+    .pickleball-visual { min-height: auto; display: grid; gap: 1rem; }
+    .comparison-photo,
+    .comparison-photo.futsal,
+    .comparison-photo.pickleball,
+    .comparison-card {
+      position: relative;
+      inset: auto;
+      width: 100%;
+      height: auto;
+    }
+    .comparison-photo { aspect-ratio: 16 / 10; }
     section { padding: 5rem 5%; }
     section.cinematic { padding: 0; }
     .corner-logo { display: none; }
@@ -1999,6 +2157,7 @@
     <li><a href="#vision">Vision</a></li>
     <li><a href="#growth">Growth</a></li>
     <li><a href="#small-sided">Why It Works</a></li>
+    <li><a href="#pickleball-moment">Access</a></li>
     <li><a href="#programs">Programs</a></li>
     <li><a href="#facility">Facility</a></li>
     <li><a href="#founders">Founders</a></li>
@@ -2053,14 +2212,11 @@
 <section class="cinematic" id="vision">
   <div class="cinematic-sticky">
     <div class="cinematic-video-wrap" id="cinematicVideoWrap">
-      <video class="cinematic-video" src="aerial_pov1.mp4" autoplay muted loop playsinline preload="metadata"></video>
+      <video class="cinematic-video" src="denver_soccer_reference.mp4" autoplay muted loop playsinline preload="auto"></video>
     </div>
 
     <div class="cinematic-copy" id="cinematicCopy">
-      <div class="cinematic-eyebrow">A New Home for the Game</div>
-      <h2 class="cinematic-title">See The Yard<span>Take Shape</span></h2>
-      <p class="cinematic-sub">A cinematic glimpse of the space, energy, and community we are building — small-sided soccer with a big-picture mission.</p>
-      <p class="asset-credit">Video reference courtesy of <a href="https://www.urbansoccerpark.com" target="_blank" rel="noopener">Urban Soccer Park</a>.</p>
+      <p class="asset-credit">Reference video: <a href="https://www.urbansoccerpark.com" target="_blank" rel="noopener">Urban Soccer Park</a> for Denver Soccer Society.</p>
     </div>
 
   </div>
@@ -2185,6 +2341,46 @@
     </article>
   </div>
   <p class="quote-source reveal">Player quotes via UEFA, <a href="https://www.uefa.com/news-media/news/0262-108f7a6f0ca6-62e1f87ba866-1000--futsal-and-me-top-footballers-share-their-love/" target="_blank" rel="noopener">"Futsal and me: top footballers share their love"</a>.</p>
+</section>
+
+<!-- PICKLEBALL COMPARISON -->
+<section class="pickleball-moment" id="pickleball-moment">
+  <div class="pickleball-layout">
+    <div class="pickleball-copy reveal">
+      <h2 class="section-title">Pickleball Energy<br>for Soccer</h2>
+      <p>Pickleball took off because it made a familiar sport smaller, faster, social, and easier to jump into. The Yard does something similar for soccer: smaller fields, more action, less waiting, and a game that feels fun right away.</p>
+      <p>Full 11v11 soccer is really a constant series of small battles: 2v2s, 3v3s, quick combinations, pressure, and decisions in tight spaces. Small-sided fields isolate those moments and give players far more touches than a full-size game.</p>
+      <p>That makes soccer more accessible too. Less running, fewer players required, shorter games, and more chances for beginners, families, adults, and serious players to all enjoy the sport.</p>
+      <div class="pickleball-points">
+        <div class="pickleball-point">
+          <strong>More Touches</strong>
+          <span>Players stay involved every minute.</span>
+        </div>
+        <div class="pickleball-point">
+          <strong>Less Space</strong>
+          <span>Less running, faster decisions.</span>
+        </div>
+        <div class="pickleball-point">
+          <strong>More Access</strong>
+          <span>Easy to organize and easy to join.</span>
+        </div>
+      </div>
+    </div>
+    <div class="pickleball-visual reveal" aria-label="Small-sided soccer compared with pickleball">
+      <figure class="comparison-photo futsal">
+        <img src="futsal2.jpg" alt="Kids playing small-sided soccer on a street court">
+        <figcaption class="comparison-tag">Small-Sided Soccer</figcaption>
+      </figure>
+      <figure class="comparison-photo pickleball">
+        <img src="pickleball.jpg" alt="Pickleball court net">
+        <figcaption class="comparison-tag">Pickleball Model</figcaption>
+      </figure>
+      <div class="comparison-card">
+        <h3>The New Pickleball, for Soccer</h3>
+        <p>Compact courts turned tennis-style play into a social movement. Mini-pitches can do the same for soccer.</p>
+      </div>
+    </div>
+  </div>
 </section>
 
 <!-- PROGRAMS -->
@@ -2574,6 +2770,27 @@
   const cinemaGlass = document.getElementById('cinematicGlass');
   const cinemaVideo = document.querySelector('.cinematic-video');
 
+  if (cinemaVideo?.tagName === 'VIDEO') {
+    cinemaVideo.muted = true;
+    cinemaVideo.play?.().catch(() => {});
+
+    let loopFlashReady = true;
+    cinemaVideo.addEventListener('timeupdate', () => {
+      if (!cinemaVideo.duration || cinemaVideo.duration - cinemaVideo.currentTime > 0.28 || !loopFlashReady) return;
+      loopFlashReady = false;
+      document.documentElement.style.setProperty('--cinema-flash-opacity', '1');
+      document.documentElement.style.setProperty('--cinema-video-alpha', '0.62');
+      window.setTimeout(() => {
+        document.documentElement.style.setProperty('--cinema-flash-opacity', '0');
+        document.documentElement.style.setProperty('--cinema-video-alpha', '1');
+      }, 220);
+    });
+
+    cinemaVideo.addEventListener('seeked', () => {
+      if (cinemaVideo.currentTime < 0.5) loopFlashReady = true;
+    });
+  }
+
   if (cinemaVideo && cinemaWrap) {
     cinemaVideo.addEventListener('error', () => cinemaWrap.classList.add('video-missing'));
   }
@@ -2591,13 +2808,13 @@
     const isAfter = rect.bottom <= window.innerHeight;
 
     // Apple-like motion: starts as floating card, grows to immersive full-screen, then lets text drift away.
-    const width = 94 + progress * 6;
-    const height = 86 + progress * 14;
-    const scale = 0.96 + progress * 0.07;
+    const width = 90 + progress * 4;
+    const height = 78 + progress * 10;
+    const scale = 0.96 + progress * 0.055;
     const y = 0;
     const opacity = 0.72 + progress * 0.28;
-    const radius = 38 - progress * 38;
-    const videoZoom = 1.08 - progress * 0.06;
+    const radius = 30 - progress * 14;
+    const videoZoom = 1.04 - progress * 0.02;
     const textY = 30 - textExit * 80;
     const textScale = 1 + progress * 0.035;
     const textOpacity = 1 - textExit;
