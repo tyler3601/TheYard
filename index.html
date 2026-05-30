@@ -1906,8 +1906,8 @@
   .asset-credit {
     margin-top: 0;
     color: rgba(219,234,254,0.72);
-    font-size: 0.72rem;
-    line-height: 1.5;
+    font-size: 0.84rem;
+    line-height: 1.55;
   }
 
   .asset-credit a {
@@ -1916,30 +1916,50 @@
     border-bottom: 1px solid rgba(191,219,254,0.42);
   }
 
-  .cinematic-sound-toggle {
+  .cinematic-audio-control {
     position: absolute;
     right: clamp(1rem, 3vw, 2rem);
     bottom: clamp(1rem, 3vw, 2rem);
     z-index: 4;
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.48rem 0.62rem;
     border: 1px solid rgba(191,219,254,0.45);
     border-radius: 999px;
     background: rgba(5, 11, 22, 0.62);
+    backdrop-filter: blur(12px);
+  }
+
+  .cinematic-sound-toggle {
+    border: 0;
+    background: transparent;
     color: rgba(248,250,252,0.92);
     font-family: 'Barlow Condensed', sans-serif;
-    font-size: 0.86rem;
+    font-size: 1rem;
     font-weight: 800;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    padding: 0.56rem 0.78rem;
+    padding: 0.24rem 0.1rem;
     cursor: pointer;
-    backdrop-filter: blur(12px);
-    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+    white-space: nowrap;
+    transition: color 0.18s ease;
   }
 
-  .cinematic-sound-toggle:hover {
-    background: rgba(37, 99, 235, 0.72);
+  .cinematic-audio-control:hover {
+    background: rgba(15, 34, 64, 0.78);
     border-color: rgba(191,219,254,0.78);
+  }
+
+  .cinematic-sound-toggle:hover,
+  .cinematic-sound-toggle[aria-pressed="true"] {
     color: #fff;
+  }
+
+  .cinematic-volume {
+    width: 6rem;
+    accent-color: #60a5fa;
+    cursor: pointer;
   }
 
   .cinematic-glass {
@@ -2239,8 +2259,12 @@
   <div class="cinematic-sticky">
     <div class="cinematic-video-wrap" id="cinematicVideoWrap">
       <video class="cinematic-video" src="denver_soccer_reference.mp4" autoplay muted loop playsinline preload="auto"></video>
-      <audio class="cinematic-audio" src="ES_Tronk%20-%20Azucares.mp3" preload="auto"></audio>
-      <button class="cinematic-sound-toggle" type="button" aria-pressed="false">Sound</button>
+      <audio class="cinematic-audio" src="second.mp3" preload="auto"></audio>
+      <audio class="cinematic-field-audio" src="ES_Ambience, Sport, Football Training, Distant, Many Players, Walla, Distant Traffic - Epidemic Sound.mp3" preload="auto"></audio>
+      <div class="cinematic-audio-control" aria-label="Video sound controls">
+        <button class="cinematic-sound-toggle" type="button" aria-pressed="false">Sound Off</button>
+        <input class="cinematic-volume" type="range" min="0" max="100" value="35" aria-label="Video sound volume">
+      </div>
     </div>
 
     <div class="cinematic-copy" id="cinematicCopy">
@@ -2798,18 +2822,33 @@
   const cinemaGlass = document.getElementById('cinematicGlass');
   const cinemaVideo = document.querySelector('.cinematic-video');
   const cinemaAudio = document.querySelector('.cinematic-audio');
+  const cinemaFieldAudio = document.querySelector('.cinematic-field-audio');
   const cinemaSoundToggle = document.querySelector('.cinematic-sound-toggle');
+  const cinemaVolume = document.querySelector('.cinematic-volume');
 
   if (cinemaVideo?.tagName === 'VIDEO') {
     cinemaVideo.muted = true;
     cinemaVideo.play?.().catch(() => {});
 
-    const audioStart = 13;
+    const audioTracks = [
+      { el: cinemaAudio, start: 13, volume: 0.52 },
+      { el: cinemaFieldAudio, start: 0, volume: 0.28 }
+    ].filter((track) => track.el);
     let soundEnabled = false;
+    let masterVolume = Number(cinemaVolume?.value || 35) / 100;
+
+    const updateAudioVolumes = () => {
+      audioTracks.forEach((track) => {
+        track.el.volume = Math.min(1, masterVolume * track.volume);
+      });
+    };
 
     const setAudioToVideoTime = () => {
-      if (!cinemaAudio) return;
-      cinemaAudio.currentTime = audioStart + (cinemaVideo.currentTime || 0);
+      audioTracks.forEach((track) => {
+        try {
+          track.el.currentTime = track.start + (cinemaVideo.currentTime || 0);
+        } catch (_) {}
+      });
     };
 
     const lockAudioToVideoTime = () => {
@@ -2819,16 +2858,24 @@
     };
 
     const syncCinemaAudio = () => {
-      if (!cinemaAudio || !soundEnabled) return;
+      if (!audioTracks.length || !soundEnabled) return;
       const playFromStartPoint = () => {
-        cinemaAudio.volume = 0.18;
+        updateAudioVolumes();
         lockAudioToVideoTime();
-        cinemaAudio.play?.().catch(() => {});
+        audioTracks.forEach((track) => track.el.play?.().catch(() => {}));
       };
 
-      if (cinemaAudio.readyState < 1) {
-        cinemaAudio.addEventListener('loadedmetadata', playFromStartPoint, { once: true });
-        cinemaAudio.load();
+      const unloadedTracks = audioTracks.filter((track) => track.el.readyState < 1);
+      if (unloadedTracks.length) {
+        let pendingTracks = unloadedTracks.length;
+        const markTrackReady = () => {
+          pendingTracks -= 1;
+          if (pendingTracks <= 0) playFromStartPoint();
+        };
+        unloadedTracks.forEach((track) => {
+          track.el.addEventListener('loadedmetadata', markTrackReady, { once: true });
+        });
+        audioTracks.forEach((track) => track.el.load());
         return;
       }
 
@@ -2836,23 +2883,34 @@
     };
 
     const resumeCinemaAudio = () => {
-      if (!cinemaAudio || !soundEnabled) return;
-      cinemaAudio.volume = 0.18;
+      if (!audioTracks.length || !soundEnabled) return;
+      updateAudioVolumes();
       lockAudioToVideoTime();
-      cinemaAudio.play?.().catch(() => {});
+      audioTracks.forEach((track) => track.el.play?.().catch(() => {}));
     };
 
     cinemaVideo.addEventListener('play', resumeCinemaAudio);
-    cinemaVideo.addEventListener('pause', () => cinemaAudio?.pause());
+    cinemaVideo.addEventListener('pause', () => audioTracks.forEach((track) => track.el.pause()));
 
     cinemaSoundToggle?.addEventListener('click', () => {
       soundEnabled = !soundEnabled;
       cinemaSoundToggle.setAttribute('aria-pressed', String(soundEnabled));
-      cinemaSoundToggle.textContent = soundEnabled ? 'Sound On' : 'Sound';
+      cinemaSoundToggle.textContent = soundEnabled ? 'Sound On' : 'Sound Off';
       if (soundEnabled) {
         syncCinemaAudio();
       } else {
-        cinemaAudio?.pause();
+        audioTracks.forEach((track) => track.el.pause());
+      }
+    });
+
+    cinemaVolume?.addEventListener('input', () => {
+      masterVolume = Number(cinemaVolume.value) / 100;
+      updateAudioVolumes();
+      if (masterVolume > 0 && !soundEnabled) {
+        soundEnabled = true;
+        cinemaSoundToggle?.setAttribute('aria-pressed', 'true');
+        if (cinemaSoundToggle) cinemaSoundToggle.textContent = 'Sound On';
+        syncCinemaAudio();
       }
     });
 
