@@ -1916,6 +1916,32 @@
     border-bottom: 1px solid rgba(191,219,254,0.42);
   }
 
+  .cinematic-sound-toggle {
+    position: absolute;
+    right: clamp(1rem, 3vw, 2rem);
+    bottom: clamp(1rem, 3vw, 2rem);
+    z-index: 4;
+    border: 1px solid rgba(191,219,254,0.45);
+    border-radius: 999px;
+    background: rgba(5, 11, 22, 0.62);
+    color: rgba(248,250,252,0.92);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.86rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 0.56rem 0.78rem;
+    cursor: pointer;
+    backdrop-filter: blur(12px);
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  }
+
+  .cinematic-sound-toggle:hover {
+    background: rgba(37, 99, 235, 0.72);
+    border-color: rgba(191,219,254,0.78);
+    color: #fff;
+  }
+
   .cinematic-glass {
     position: absolute;
     left: 50%;
@@ -2214,10 +2240,11 @@
     <div class="cinematic-video-wrap" id="cinematicVideoWrap">
       <video class="cinematic-video" src="denver_soccer_reference.mp4" autoplay muted loop playsinline preload="auto"></video>
       <audio class="cinematic-audio" src="ES_Tronk%20-%20Azucares.mp3" preload="auto"></audio>
+      <button class="cinematic-sound-toggle" type="button" aria-pressed="false">Sound</button>
     </div>
 
     <div class="cinematic-copy" id="cinematicCopy">
-      <p class="asset-credit">Reference video: <a href="https://www.urbansoccerpark.com" target="_blank" rel="noopener">Urban Soccer Park</a> for Denver Soccer Society.</p>
+      <p class="asset-credit">Reference field by <a href="https://www.urbansoccerpark.com" target="_blank" rel="noopener">Urban Soccer Park</a>, our field partner; built for Denver Soccer Society, not The Yard.</p>
     </div>
 
   </div>
@@ -2771,28 +2798,32 @@
   const cinemaGlass = document.getElementById('cinematicGlass');
   const cinemaVideo = document.querySelector('.cinematic-video');
   const cinemaAudio = document.querySelector('.cinematic-audio');
+  const cinemaSoundToggle = document.querySelector('.cinematic-sound-toggle');
 
   if (cinemaVideo?.tagName === 'VIDEO') {
     cinemaVideo.muted = true;
     cinemaVideo.play?.().catch(() => {});
 
     const audioStart = 13;
-    const syncCinemaAudio = () => {
+    let soundEnabled = false;
+
+    const setAudioToVideoTime = () => {
       if (!cinemaAudio) return;
+      cinemaAudio.currentTime = audioStart + (cinemaVideo.currentTime || 0);
+    };
+
+    const lockAudioToVideoTime = () => {
+      setAudioToVideoTime();
+      window.setTimeout(setAudioToVideoTime, 80);
+      window.setTimeout(setAudioToVideoTime, 240);
+    };
+
+    const syncCinemaAudio = () => {
+      if (!cinemaAudio || !soundEnabled) return;
       const playFromStartPoint = () => {
         cinemaAudio.volume = 0.18;
-        cinemaAudio.currentTime = audioStart;
-        cinemaAudio.play?.().catch(() => {
-          const startOnGesture = () => {
-            cinemaAudio.volume = 0.18;
-            cinemaAudio.currentTime = audioStart;
-            cinemaAudio.play?.().catch(() => {});
-            window.removeEventListener('pointerdown', startOnGesture);
-            window.removeEventListener('keydown', startOnGesture);
-          };
-          window.addEventListener('pointerdown', startOnGesture, { once: true });
-          window.addEventListener('keydown', startOnGesture, { once: true });
-        });
+        lockAudioToVideoTime();
+        cinemaAudio.play?.().catch(() => {});
       };
 
       if (cinemaAudio.readyState < 1) {
@@ -2805,23 +2836,25 @@
     };
 
     const resumeCinemaAudio = () => {
-      if (!cinemaAudio) return;
+      if (!cinemaAudio || !soundEnabled) return;
       cinemaAudio.volume = 0.18;
-      cinemaAudio.play?.().catch(() => {
-        const startOnGesture = () => {
-          cinemaAudio.volume = 0.18;
-          cinemaAudio.play?.().catch(() => {});
-          window.removeEventListener('pointerdown', startOnGesture);
-          window.removeEventListener('keydown', startOnGesture);
-        };
-        window.addEventListener('pointerdown', startOnGesture, { once: true });
-        window.addEventListener('keydown', startOnGesture, { once: true });
-      });
+      lockAudioToVideoTime();
+      cinemaAudio.play?.().catch(() => {});
     };
 
     cinemaVideo.addEventListener('play', resumeCinemaAudio);
-    window.setTimeout(syncCinemaAudio, 600);
     cinemaVideo.addEventListener('pause', () => cinemaAudio?.pause());
+
+    cinemaSoundToggle?.addEventListener('click', () => {
+      soundEnabled = !soundEnabled;
+      cinemaSoundToggle.setAttribute('aria-pressed', String(soundEnabled));
+      cinemaSoundToggle.textContent = soundEnabled ? 'Sound On' : 'Sound';
+      if (soundEnabled) {
+        syncCinemaAudio();
+      } else {
+        cinemaAudio?.pause();
+      }
+    });
 
     let loopFlashReady = true;
     cinemaVideo.addEventListener('timeupdate', () => {
