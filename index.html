@@ -2213,6 +2213,7 @@
   <div class="cinematic-sticky">
     <div class="cinematic-video-wrap" id="cinematicVideoWrap">
       <video class="cinematic-video" src="denver_soccer_reference.mp4" autoplay muted loop playsinline preload="auto"></video>
+      <audio class="cinematic-audio" src="ES_Tronk%20-%20Azucares.mp3" preload="auto"></audio>
     </div>
 
     <div class="cinematic-copy" id="cinematicCopy">
@@ -2769,10 +2770,58 @@
   const cinemaCopy = document.getElementById('cinematicCopy');
   const cinemaGlass = document.getElementById('cinematicGlass');
   const cinemaVideo = document.querySelector('.cinematic-video');
+  const cinemaAudio = document.querySelector('.cinematic-audio');
 
   if (cinemaVideo?.tagName === 'VIDEO') {
     cinemaVideo.muted = true;
     cinemaVideo.play?.().catch(() => {});
+
+    const audioStart = 13;
+    const syncCinemaAudio = () => {
+      if (!cinemaAudio) return;
+      const playFromStartPoint = () => {
+        cinemaAudio.volume = 0.18;
+        cinemaAudio.currentTime = audioStart;
+        cinemaAudio.play?.().catch(() => {
+          const startOnGesture = () => {
+            cinemaAudio.volume = 0.18;
+            cinemaAudio.currentTime = audioStart;
+            cinemaAudio.play?.().catch(() => {});
+            window.removeEventListener('pointerdown', startOnGesture);
+            window.removeEventListener('keydown', startOnGesture);
+          };
+          window.addEventListener('pointerdown', startOnGesture, { once: true });
+          window.addEventListener('keydown', startOnGesture, { once: true });
+        });
+      };
+
+      if (cinemaAudio.readyState < 1) {
+        cinemaAudio.addEventListener('loadedmetadata', playFromStartPoint, { once: true });
+        cinemaAudio.load();
+        return;
+      }
+
+      playFromStartPoint();
+    };
+
+    const resumeCinemaAudio = () => {
+      if (!cinemaAudio) return;
+      cinemaAudio.volume = 0.18;
+      cinemaAudio.play?.().catch(() => {
+        const startOnGesture = () => {
+          cinemaAudio.volume = 0.18;
+          cinemaAudio.play?.().catch(() => {});
+          window.removeEventListener('pointerdown', startOnGesture);
+          window.removeEventListener('keydown', startOnGesture);
+        };
+        window.addEventListener('pointerdown', startOnGesture, { once: true });
+        window.addEventListener('keydown', startOnGesture, { once: true });
+      });
+    };
+
+    cinemaVideo.addEventListener('play', resumeCinemaAudio);
+    window.setTimeout(syncCinemaAudio, 600);
+    cinemaVideo.addEventListener('pause', () => cinemaAudio?.pause());
 
     let loopFlashReady = true;
     cinemaVideo.addEventListener('timeupdate', () => {
@@ -2780,6 +2829,7 @@
       loopFlashReady = false;
       document.documentElement.style.setProperty('--cinema-flash-opacity', '1');
       document.documentElement.style.setProperty('--cinema-video-alpha', '0.62');
+      syncCinemaAudio();
       window.setTimeout(() => {
         document.documentElement.style.setProperty('--cinema-flash-opacity', '0');
         document.documentElement.style.setProperty('--cinema-video-alpha', '1');
