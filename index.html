@@ -2259,7 +2259,7 @@
   <div class="cinematic-sticky">
     <div class="cinematic-video-wrap" id="cinematicVideoWrap">
       <video class="cinematic-video" src="denver_soccer_reference.mp4" autoplay muted loop playsinline preload="auto"></video>
-      <audio class="cinematic-audio" src="second.mp3" preload="auto"></audio>
+      <audio class="cinematic-audio" src="ES_Cleopatra - Ooyy.mp3" preload="auto" loop></audio>
       <audio class="cinematic-field-audio" src="ES_Ambience, Sport, Football Training, Distant, Many Players, Walla, Distant Traffic - Epidemic Sound.mp3" preload="auto"></audio>
       <div class="cinematic-audio-control" aria-label="Video sound controls">
         <button class="cinematic-sound-toggle" type="button" aria-pressed="false">Sound Off</button>
@@ -2831,8 +2831,8 @@
     cinemaVideo.play?.().catch(() => {});
 
     const audioTracks = [
-      { el: cinemaAudio, start: 13, volume: 0.52 },
-      { el: cinemaFieldAudio, start: 0, volume: 0.28 }
+      { el: cinemaAudio, volume: 0.46, syncToVideo: false },
+      { el: cinemaFieldAudio, start: 0, volume: 0.9, syncToVideo: true }
     ].filter((track) => track.el);
     let soundEnabled = false;
     let masterVolume = Number(cinemaVolume?.value || 35) / 100;
@@ -2845,6 +2845,7 @@
 
     const setAudioToVideoTime = () => {
       audioTracks.forEach((track) => {
+        if (!track.syncToVideo) return;
         try {
           track.el.currentTime = track.start + (cinemaVideo.currentTime || 0);
         } catch (_) {}
@@ -2862,6 +2863,7 @@
       const playFromStartPoint = () => {
         updateAudioVolumes();
         lockAudioToVideoTime();
+        if (cinemaAudio && cinemaAudio.ended) cinemaAudio.currentTime = 0;
         audioTracks.forEach((track) => track.el.play?.().catch(() => {}));
       };
 
