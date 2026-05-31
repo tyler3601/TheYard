@@ -322,6 +322,37 @@
     display: block;
   }
 
+  .hero-future {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 5%;
+    pointer-events: none;
+    opacity: var(--hero-future-opacity, 0);
+    transform: translate3d(0, var(--hero-future-y, 24px), 0) scale(var(--hero-future-scale, 0.96));
+    transition: opacity 0.12s linear, transform 0.12s linear;
+    will-change: opacity, transform;
+  }
+
+  .hero-future p {
+    max-width: 900px;
+    color: rgba(248,250,252,0.94);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: clamp(2.2rem, 6vw, 6.4rem);
+    font-weight: 900;
+    line-height: 0.98;
+    letter-spacing: 0;
+    text-transform: uppercase;
+    text-shadow: 0 24px 90px rgba(0,0,0,0.62);
+  }
+
+  .hero-future span {
+    color: var(--blue-light);
+  }
+
   .hero-sub {
     font-size: 1.15rem;
     line-height: 1.6;
@@ -2247,6 +2278,9 @@
       <a href="#contact" class="btn-outline">Get Involved</a>
     </div>
   </div>
+  <div class="hero-future" aria-hidden="true">
+    <p>The future of <span>small-sided soccer</span> in the U.S.</p>
+  </div>
   <div class="hero-scroll">
     <div class="scroll-line"></div>
     <span>Scroll</span>
@@ -2787,6 +2821,9 @@
     const stageY = progress * 54;
     const stageScale = 1 - progress * 0.045;
     const stageOpacity = 1 - smoothstep(0.32, 0.94, progress);
+    const futureOpacity = smoothstep(0.54, 0.78, progress);
+    const futureY = 26 - futureOpacity * 26;
+    const futureScale = 0.96 + futureOpacity * 0.04;
     const opacity = 0.05 + progress * 0.08;
     const transitionOpacity = smoothstep(0.78, 1, progress) * 0.18;
 
@@ -2799,6 +2836,9 @@
     document.documentElement.style.setProperty('--hero-stage-y', stageY.toFixed(1) + 'px');
     document.documentElement.style.setProperty('--hero-stage-scale', stageScale.toFixed(3));
     document.documentElement.style.setProperty('--hero-stage-opacity', stageOpacity.toFixed(3));
+    document.documentElement.style.setProperty('--hero-future-opacity', futureOpacity.toFixed(3));
+    document.documentElement.style.setProperty('--hero-future-y', futureY.toFixed(1) + 'px');
+    document.documentElement.style.setProperty('--hero-future-scale', futureScale.toFixed(3));
   }
 
   function updateCornerLogo() {
@@ -2831,10 +2871,11 @@
     cinemaVideo.play?.().catch(() => {});
 
     const audioTracks = [
-      { el: cinemaAudio, volume: 0.46, syncToVideo: false },
-      { el: cinemaFieldAudio, start: 0, volume: 0.9, syncToVideo: true }
+      { el: cinemaAudio, volume: 0.3, syncToVideo: false },
+      { el: cinemaFieldAudio, start: 0, volume: 1, syncToVideo: true }
     ].filter((track) => track.el);
     let soundEnabled = false;
+    let cinemaInView = false;
     let masterVolume = Number(cinemaVolume?.value || 35) / 100;
 
     const updateAudioVolumes = () => {
@@ -2859,7 +2900,7 @@
     };
 
     const syncCinemaAudio = () => {
-      if (!audioTracks.length || !soundEnabled) return;
+      if (!audioTracks.length || !soundEnabled || !cinemaInView) return;
       const playFromStartPoint = () => {
         updateAudioVolumes();
         lockAudioToVideoTime();
@@ -2885,23 +2926,35 @@
     };
 
     const resumeCinemaAudio = () => {
-      if (!audioTracks.length || !soundEnabled) return;
+      if (!audioTracks.length || !soundEnabled || !cinemaInView) return;
       updateAudioVolumes();
       lockAudioToVideoTime();
       audioTracks.forEach((track) => track.el.play?.().catch(() => {}));
     };
 
+    const pauseCinemaAudio = () => {
+      audioTracks.forEach((track) => track.el.pause());
+    };
+
+    const updateCinemaInView = () => {
+      if (!cinematic) return false;
+      const rect = cinematic.getBoundingClientRect();
+      cinemaInView = rect.top < window.innerHeight * 0.78 && rect.bottom > window.innerHeight * 0.22;
+      return cinemaInView;
+    };
+
     cinemaVideo.addEventListener('play', resumeCinemaAudio);
-    cinemaVideo.addEventListener('pause', () => audioTracks.forEach((track) => track.el.pause()));
+    cinemaVideo.addEventListener('pause', pauseCinemaAudio);
 
     cinemaSoundToggle?.addEventListener('click', () => {
       soundEnabled = !soundEnabled;
       cinemaSoundToggle.setAttribute('aria-pressed', String(soundEnabled));
       cinemaSoundToggle.textContent = soundEnabled ? 'Sound On' : 'Sound Off';
       if (soundEnabled) {
+        updateCinemaInView();
         syncCinemaAudio();
       } else {
-        audioTracks.forEach((track) => track.el.pause());
+        pauseCinemaAudio();
       }
     });
 
@@ -2915,6 +2968,18 @@
         syncCinemaAudio();
       }
     });
+
+    const cinemaObserver = new IntersectionObserver(([entry]) => {
+      cinemaInView = entry.isIntersecting && entry.intersectionRatio > 0.22;
+      updateCinemaInView();
+      if (cinemaInView) {
+        resumeCinemaAudio();
+      } else {
+        pauseCinemaAudio();
+      }
+    }, { threshold: [0, 0.22, 0.5] });
+
+    if (cinematic) cinemaObserver.observe(cinematic);
 
     let loopFlashReady = true;
     cinemaVideo.addEventListener('timeupdate', () => {
