@@ -191,17 +191,15 @@
 
   /* ── HERO ── */
   .hero {
-    min-height: 116vh;
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
+    justify-content: center;
     align-items: center;
-    padding: 0 5%;
+    padding: clamp(5.25rem, 7.5vw, 6.75rem) 5% 3.25rem max(5%, 5.9rem);
     text-align: center;
     position: relative;
     overflow: hidden;
-    perspective: 720px;
-    transform-style: preserve-3d;
     background: linear-gradient(135deg, var(--blue-dark) 0%, #1a3a6b 55%, #1e4a8a 100%);
   }
 
@@ -219,29 +217,29 @@
   }
 
   .hero-stage {
-    position: sticky;
-    top: 0;
-    min-height: 100vh;
-    width: 100%;
+    position: absolute;
+    inset: 0;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 8rem 0 6rem;
-    transform:
-      translate3d(0, var(--hero-stage-y, 0px), 0)
-      rotateX(var(--hero-stage-tilt, 0deg))
-      scale(var(--hero-stage-scale, 1));
-    transform-origin: 50% 50%;
-    transform-style: preserve-3d;
-    opacity: var(--hero-stage-opacity, 1);
-    will-change: transform, opacity;
+    padding: 0;
+    opacity: 1;
+    animation: none;
     z-index: 2;
+    pointer-events: none;
   }
 
   .hero-bg {
-    position: absolute;
-    inset: 0;
+    position: relative;
+    z-index: 1;
+    width: min(1120px, 100%);
+    aspect-ratio: 16 / 9;
+    min-height: min(68svh, 620px);
+    overflow: hidden;
+    border: 1px solid rgba(191,219,254,0.18);
+    border-radius: clamp(18px, 2.4vw, 30px);
+    box-shadow: 0 34px 110px rgba(0,0,0,0.42);
     background:
       radial-gradient(ellipse 55% 50% at 75% 35%, rgba(96,165,250,0.18) 0%, transparent 65%),
       radial-gradient(ellipse 40% 55% at 15% 75%, rgba(29,78,216,0.12) 0%, transparent 55%),
@@ -249,8 +247,28 @@
       linear-gradient(to bottom, transparent 62%, rgba(5,11,22,0.34));
   }
 
-  .hero-bg::before,
+  .hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+    filter: brightness(0.82) contrast(1.06) saturate(1.08);
+  }
+
   .hero-bg::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background:
+      radial-gradient(ellipse 70% 50% at 50% 50%, transparent 0%, rgba(5,11,22,0.10) 66%, rgba(5,11,22,0.42) 100%),
+      linear-gradient(to bottom, rgba(5,11,22,0.18), rgba(5,11,22,0.06) 46%, rgba(5,11,22,0.34));
+  }
+
+  .hero-bg::before {
     content: '';
     position: absolute;
     width: 32rem;
@@ -267,29 +285,12 @@
     background: radial-gradient(circle, var(--blue-light), transparent 68%);
   }
 
-  .hero-bg::after {
-    right: -9rem;
-    bottom: 8%;
-    background: radial-gradient(circle, rgba(37,99,235,0.46), transparent 70%);
-    animation-delay: -4s;
-  }
-
   .field-lines {
-    position: absolute;
-    inset: 0;
-    opacity: var(--field-opacity, 0.05);
-    transform:
-      translate3d(0, var(--field-y, 0px), 0)
-      rotateX(var(--field-tilt, 0deg))
-      scale(var(--field-scale, 1));
-    transform-origin: 50% 50%;
-    transform-style: preserve-3d;
-    will-change: transform, opacity;
-    z-index: 1;
+    display: none;
   }
 
   .hero-badge {
-    display: inline-block;
+    display: none;
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 700;
     font-size: 0.85rem;
@@ -307,13 +308,14 @@
   .hero h1 {
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 900;
-    font-size: clamp(4.5rem, 14vw, 12rem);
-    line-height: 0.88;
-    letter-spacing: -0.01em;
+    font-size: clamp(3.6rem, 8.5vw, 8rem);
+    line-height: 0.82;
+    letter-spacing: 0;
     text-transform: uppercase;
     color: var(--white);
-    animation: fadeUp 0.8s 0.15s ease both;
+    animation: none;
     text-align: center;
+    text-shadow: 0 18px 60px rgba(0,0,0,0.8);
   }
 
   .hero h1 em {
@@ -323,18 +325,7 @@
   }
 
   .hero-future {
-    position: absolute;
-    inset: 0;
-    z-index: 3;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 5%;
-    pointer-events: none;
-    opacity: var(--hero-future-opacity, 0);
-    transform: translate3d(0, var(--hero-future-y, 24px), 0) scale(var(--hero-future-scale, 0.96));
-    transition: opacity 0.12s linear, transform 0.12s linear;
-    will-change: opacity, transform;
+    display: none;
   }
 
   .hero-future p {
@@ -354,6 +345,7 @@
   }
 
   .hero-sub {
+    display: none;
     font-size: 1.15rem;
     line-height: 1.6;
     color: var(--blue-pale);
@@ -365,7 +357,7 @@
   }
 
   .hero-actions {
-    display: flex;
+    display: none;
     gap: 1rem;
     margin: 2.5rem auto 0;
     flex-wrap: wrap;
@@ -439,6 +431,7 @@
   }
 
   .hero-scroll {
+    display: none;
     position: absolute;
     bottom: 2.5rem;
     right: 5%;
@@ -1298,6 +1291,46 @@
     gap: 0.4rem;
   }
 
+  .board-note {
+    margin: 1.4rem auto 0;
+    width: min(920px, 100%);
+    max-width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid rgba(37, 99, 235, 0.18);
+    border-radius: 12px;
+    background: rgba(255,255,255,0.72);
+    color: var(--gray-dark);
+    font-size: 0.88rem;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  .board-note strong {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 0.8rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--blue-accent);
+    margin-right: 0.4rem;
+  }
+
+  .board-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.8rem 1.2rem;
+    justify-content: center;
+    margin-top: 0.45rem;
+  }
+
+  .board-list span {
+    color: var(--gray);
+  }
+
+  .board-list b {
+    color: var(--blue-dark);
+    font-weight: 700;
+  }
+
   /* ── TEAM PHOTO SECTION ── */
   .team-photo-section {
     margin-top: 4rem;
@@ -1370,6 +1403,46 @@
   .community .btn-primary:hover {
     background: var(--blue-pale);
     color: var(--blue-dark);
+  }
+
+  /* ── SURVEY ── */
+  .survey {
+    background:
+      radial-gradient(ellipse 48% 42% at 84% 18%, rgba(46,111,242,0.13) 0%, transparent 62%),
+      linear-gradient(180deg, var(--off-white) 0%, #eaf2ff 100%);
+    display: grid;
+    grid-template-columns: minmax(240px, 0.72fr) minmax(360px, 1.28fr);
+    gap: clamp(2rem, 4vw, 4.5rem);
+    align-items: center;
+  }
+
+  .survey .section-title {
+    color: var(--blue-dark);
+    text-align: left;
+    margin-bottom: 1rem;
+  }
+
+  .survey-copy p {
+    color: var(--gray);
+    font-size: 1.05rem;
+    line-height: 1.75;
+    margin-bottom: 1.5rem;
+  }
+
+  .survey-frame {
+    min-height: 560px;
+    overflow: hidden;
+    border: 1px solid rgba(46,111,242,0.14);
+    border-radius: 18px;
+    background: var(--white);
+    box-shadow: 0 26px 80px rgba(15,34,64,0.14);
+  }
+
+  .survey-frame iframe {
+    width: 100%;
+    height: 640px;
+    border: 0;
+    display: block;
   }
 
   /* ── CONTACT ── */
@@ -1523,11 +1596,11 @@
   /* ── CORNER LOGO ── */
   .corner-logo {
     position: fixed;
-    top: 88px;
-    left: 1.35rem;
+    top: 92px;
+    left: 0.85rem;
     right: auto;
-    width: 118px;
-    height: 118px;
+    width: 62px;
+    height: 62px;
     background: transparent;
     border-radius: 14px;
     display: flex;
@@ -1539,7 +1612,7 @@
     transition:
     transform 0.3s cubic-bezier(0.34,1.56,0.64,1), opacity 0.3s ease;
     overflow: hidden;
-    padding: 8px;
+    padding: 3px;
   }
 
   .corner-logo:hover {
@@ -1712,6 +1785,13 @@
   @keyframes fadeUp {
     from { opacity: 0; transform: translateY(24px); }
     to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes heroTitleFade {
+    0% { opacity: 0; transform: translateY(18px) scale(0.98); }
+    14% { opacity: 1; transform: translateY(0) scale(1); }
+    58% { opacity: 1; transform: translateY(0) scale(1); }
+    100% { opacity: 0; transform: translateY(-22px) scale(1.02); }
   }
 
   @keyframes float {
@@ -2172,7 +2252,7 @@
     }
     .nav-divider { display: none; }
     .hamburger { display: flex; }
-    .mission, .contact { grid-template-columns: 1fr; gap: 3rem; }
+    .mission, .survey, .contact { grid-template-columns: 1fr; gap: 3rem; }
     .growth-grid { grid-template-columns: 1fr; gap: 2.5rem; }
     .futsal-header { grid-template-columns: 1fr; align-items: start; margin-bottom: 5rem; }
     .quote-grid { grid-template-columns: repeat(2, 1fr); }
@@ -2184,7 +2264,7 @@
     .mission-stats { grid-template-columns: 1fr 1fr; }
     .form-row { grid-template-columns: 1fr; }
     footer { flex-direction: column; text-align: center; }
-    .corner-logo { width: 96px; height: 96px; top: 82px; left: 1rem; right: auto; }
+    .corner-logo { width: 56px; height: 56px; top: 82px; left: 0.75rem; right: auto; }
   }
 
   @media (max-width: 600px) {
@@ -2252,61 +2332,16 @@
 </div>
 
 <!-- HERO -->
-<section class="hero">
-  <div class="hero-bg"></div>
-  <svg class="field-lines" viewBox="0 0 1440 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
-    <rect x="200" y="100" width="1040" height="700" fill="none" stroke="white" stroke-width="2"/>
-    <line x1="720" y1="100" x2="720" y2="800" stroke="white" stroke-width="1.5"/>
-    <circle cx="720" cy="450" r="120" fill="none" stroke="white" stroke-width="1.5"/>
-    <circle cx="720" cy="450" r="4" fill="white"/>
-    <rect x="200" y="320" width="130" height="260" fill="none" stroke="white" stroke-width="1.5"/>
-    <rect x="1110" y="320" width="130" height="260" fill="none" stroke="white" stroke-width="1.5"/>
-    <rect x="200" y="370" width="60" height="160" fill="none" stroke="white" stroke-width="1.5"/>
-    <rect x="1180" y="370" width="60" height="160" fill="none" stroke="white" stroke-width="1.5"/>
-    <path d="M 200 550 Q 330 550 330 450 Q 330 350 200 350" fill="none" stroke="white" stroke-width="1.5"/>
-    <path d="M 1240 350 Q 1110 350 1110 450 Q 1110 550 1240 550" fill="none" stroke="white" stroke-width="1.5"/>
-    <circle cx="720" cy="100" r="4" fill="white"/>
-    <circle cx="720" cy="800" r="4" fill="white"/>
-  </svg>
+<section class="hero" id="vision">
+  <div class="hero-bg">
+    <video class="hero-video" src="denver_soccer_reference.mp4" autoplay muted loop playsinline preload="metadata" aria-hidden="true"></video>
 
-  <div class="hero-stage">
-    <div class="hero-badge">Western New York · 501(c)(3) Nonprofit</div>
-    <h1>The<br><em>Yard</em></h1>
-    <p class="hero-sub">Community soccer and recreation for Western New York — free public play, youth development, and a space where the game brings people together.</p>
-    <div class="hero-actions">
-      <a href="#mission" class="btn-primary">Learn More</a>
-      <a href="#contact" class="btn-outline">Get Involved</a>
+    <div class="hero-stage">
+      <h1>The<br><em>Yard</em></h1>
     </div>
-  </div>
-  <div class="hero-future" aria-hidden="true">
-    <p>The future of <span>small-sided soccer</span> in the U.S.</p>
-  </div>
-  <div class="hero-scroll">
-    <div class="scroll-line"></div>
-    <span>Scroll</span>
   </div>
 </section>
 
-
-<!-- CINEMATIC VIDEO EXPERIENCE -->
-<section class="cinematic" id="vision">
-  <div class="cinematic-sticky">
-    <div class="cinematic-video-wrap" id="cinematicVideoWrap">
-      <video class="cinematic-video" src="denver_soccer_reference.mp4" autoplay muted loop playsinline preload="auto"></video>
-      <audio class="cinematic-audio" src="ES_Cleopatra - Ooyy.mp3" preload="auto" loop></audio>
-      <audio class="cinematic-field-audio" src="ES_Ambience, Sport, Football Training, Distant, Many Players, Walla, Distant Traffic - Epidemic Sound.mp3" preload="auto"></audio>
-      <div class="cinematic-audio-control" aria-label="Video sound controls">
-        <button class="cinematic-sound-toggle" type="button" aria-pressed="false">Sound Off</button>
-        <input class="cinematic-volume" type="range" min="0" max="100" value="25" aria-label="Video sound volume">
-      </div>
-    </div>
-
-    <div class="cinematic-copy" id="cinematicCopy">
-      <p class="asset-credit">Reference field by <a href="https://www.urbansoccerpark.com" target="_blank" rel="noopener">Urban Soccer Park</a>, our field partner; built for Denver Soccer Society, not The Yard.</p>
-    </div>
-
-  </div>
-</section>
 
 <!-- MARQUEE -->
 <div class="marquee-strip" aria-hidden="true">
@@ -2639,6 +2674,15 @@
     </div>
   </div>
 
+  <div class="board-note reveal">
+    <strong>Board</strong>
+    <div class="board-list">
+      <span><b>Dave Stephan</b></span>
+      <span><b>Nick Giamusso</b> · VIPTIX CEO, broker, and former UB soccer player/coach</span>
+      <span><b>Roberto Colangelo</b> · business professor, mentor, and longtime soccer coach</span>
+    </div>
+  </div>
+
   <!-- TEAM PHOTO -->
   <div class="team-photo-section reveal">
     <h3>In Action</h3>
@@ -2652,6 +2696,18 @@
   <h2 class="section-title">Help Us Build<br>Something Real</h2>
   <p>The Yard is built on community support. Whether you want to donate, volunteer, sponsor, or simply spread the word — every bit of support brings us closer to opening day.</p>
   <a href="#contact" class="btn-primary">Get Involved Today</a>
+</section>
+
+<!-- SURVEY -->
+<section class="survey" id="survey">
+  <div class="survey-copy reveal">
+    <h2 class="section-title">Share Your Input</h2>
+    <p>Help shape what The Yard becomes. A quick survey gives us a better sense of what programs, locations, and community uses matter most.</p>
+    <a href="https://forms.gle/bzhh3vrrNunpvCuV7" class="btn-primary" target="_blank" rel="noopener">Open Survey</a>
+  </div>
+  <div class="survey-frame reveal">
+    <iframe src="https://forms.gle/bzhh3vrrNunpvCuV7" title="The Yard community survey" loading="lazy"></iframe>
+  </div>
 </section>
 
 <!-- CONTACT -->
@@ -2812,39 +2868,12 @@
 
   function updateHeroFieldPerspective() {
     if (!heroSection) return;
-    const heroTravel = Math.max(1, heroSection.offsetHeight - window.innerHeight);
-    const progress = smoothstep(0, 1, clamp(window.scrollY / heroTravel, 0, 1));
-    const tilt = progress * 54;
-    const y = progress * 95;
-    const scale = 1 + progress * 0.18;
-    const stageTilt = progress * 28;
-    const stageY = progress * 54;
-    const stageScale = 1 - progress * 0.045;
-    const stageOpacity = 1 - smoothstep(0.32, 0.94, progress);
-    const futureOpacity = smoothstep(0.54, 0.78, progress);
-    const futureY = 26 - futureOpacity * 26;
-    const futureScale = 0.96 + futureOpacity * 0.04;
-    const opacity = 0.05 + progress * 0.08;
-    const transitionOpacity = smoothstep(0.78, 1, progress) * 0.18;
-
-    document.documentElement.style.setProperty('--field-tilt', tilt.toFixed(2) + 'deg');
-    document.documentElement.style.setProperty('--field-y', y.toFixed(1) + 'px');
-    document.documentElement.style.setProperty('--field-scale', scale.toFixed(3));
-    document.documentElement.style.setProperty('--field-opacity', opacity.toFixed(3));
-    document.documentElement.style.setProperty('--hero-transition-opacity', transitionOpacity.toFixed(3));
-    document.documentElement.style.setProperty('--hero-stage-tilt', stageTilt.toFixed(2) + 'deg');
-    document.documentElement.style.setProperty('--hero-stage-y', stageY.toFixed(1) + 'px');
-    document.documentElement.style.setProperty('--hero-stage-scale', stageScale.toFixed(3));
-    document.documentElement.style.setProperty('--hero-stage-opacity', stageOpacity.toFixed(3));
-    document.documentElement.style.setProperty('--hero-future-opacity', futureOpacity.toFixed(3));
-    document.documentElement.style.setProperty('--hero-future-y', futureY.toFixed(1) + 'px');
-    document.documentElement.style.setProperty('--hero-future-scale', futureScale.toFixed(3));
+    document.documentElement.style.setProperty('--hero-transition-opacity', '0');
   }
 
   function updateCornerLogo() {
     if (!cornerLogo || !heroSection) return;
-    const heroBottom = heroSection.offsetHeight - 80;
-    cornerLogo.classList.toggle('hidden', window.scrollY > heroBottom);
+    cornerLogo.classList.remove('hidden');
   }
 
   window.addEventListener('scroll', updateCornerLogo, { passive: true });
