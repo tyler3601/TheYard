@@ -1043,6 +1043,7 @@
   }
 
   .comparison-photo {
+    position: relative;
     overflow: hidden;
     border-radius: 14px;
     box-shadow: 0 20px 60px rgba(15,34,64,0.14);
@@ -1137,14 +1138,14 @@
   .programs-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 1.25rem;
+    gap: 1rem;
   }
 
   .program-card {
     background:
       linear-gradient(180deg, rgba(255,255,255,0.96), rgba(255,255,255,0.86)),
       radial-gradient(circle at 20% 0%, rgba(96,165,250,0.20), transparent 16rem);
-    padding: 2.4rem 2rem;
+    padding: 1.85rem 1.55rem;
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
     position: relative;
     overflow: hidden;
@@ -1186,12 +1187,12 @@
   }
 
   .program-icon {
-    width: 54px;
-    height: 54px;
-    border-radius: 16px;
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
     display: grid;
     place-items: center;
-    margin-bottom: 1.45rem;
+    margin-bottom: 1.1rem;
     background: linear-gradient(135deg, var(--blue-accent), var(--blue-light));
     color: var(--white);
     box-shadow: 0 12px 32px rgba(37,99,235,0.25);
@@ -1200,8 +1201,8 @@
   }
 
   .program-icon svg {
-    width: 26px;
-    height: 26px;
+    width: 23px;
+    height: 23px;
     stroke: currentColor;
     fill: none;
     stroke-width: 2.2;
@@ -1214,18 +1215,18 @@
     z-index: 1;
     font-family: 'Barlow Condensed', sans-serif;
     font-weight: 800;
-    font-size: 1.4rem;
+    font-size: 1.26rem;
     text-transform: uppercase;
     letter-spacing: 0.04em;
-    margin-bottom: 0.75rem;
+    margin-bottom: 0.58rem;
     color: var(--blue-dark);
   }
 
   .program-card p {
     position: relative;
     z-index: 1;
-    font-size: 0.95rem;
-    line-height: 1.7;
+    font-size: 0.9rem;
+    line-height: 1.58;
     color: var(--gray);
   }
 
@@ -1238,14 +1239,18 @@
 
   .facility .section-label { color: var(--blue-accent); }
   .facility .section-label::before { background: var(--blue-accent); }
-  .facility .section-title { color: var(--blue-dark); }
+  .facility .section-title {
+    color: var(--blue-dark);
+    white-space: nowrap;
+    font-size: clamp(2.7rem, 5.1vw, 4.55rem);
+  }
 
   .facility-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 3rem;
     align-items: start;
-    margin-top: 2.6rem;
+    margin-top: 1.15rem;
   }
 
   .facility-features {
@@ -1290,7 +1295,7 @@
     border-radius: 12px;
     padding: 2rem;
     color: var(--white);
-    transform: translateY(-1.25rem);
+    transform: translateY(-3.6rem);
   }
 
   .facility-specs h3 {
@@ -2324,7 +2329,7 @@
       radial-gradient(circle at 20% 0%, rgba(96,165,250,0.22), transparent 18rem);
     border: 1px solid rgba(96,165,250,0.25);
     box-shadow: 0 25px 80px rgba(15,34,64,0.20);
-    transform: translateY(-1.25rem);
+    transform: translateY(-3.6rem);
   }
 
   .rendering-image, .team-photo {
@@ -2389,6 +2394,7 @@
     .programs-grid { grid-template-columns: 1fr; }
     .founders-grid { grid-template-columns: 1fr; }
     .facility-grid { grid-template-columns: 1fr; gap: 2rem; }
+    .facility .section-title { white-space: normal; }
     .mission-stats { grid-template-columns: 1fr 1fr; }
     .form-row { grid-template-columns: 1fr; }
     footer { flex-direction: column; text-align: center; }
@@ -2559,7 +2565,7 @@
 <section class="promo-video" id="promo">
   <div class="promo-video-shell reveal">
     <div class="promo-video-copy">
-      <h2>See The Yard Come Alive</h2>
+      <h2>A message from the Founders</h2>
     </div>
     <div class="promo-embed">
       <a class="promo-link" href="https://www.youtube.com/watch?v=V3QiPAXM2b0" target="_blank" rel="noopener" aria-label="Play The Yard promo video on YouTube">
@@ -2696,7 +2702,7 @@
 <!-- FACILITY -->
 <section class="facility" id="facility">
   <div class="section-label reveal">The Facility</div>
-  <h2 class="section-title reveal">A Modern Space<br>for WNY</h2>
+  <h2 class="section-title reveal">A Modern Space for WNY</h2>
   <div class="facility-grid">
     <div class="facility-features reveal">
       <div class="feature-item">
@@ -3019,7 +3025,8 @@
 
   function updateCornerLogo() {
     if (!cornerLogo || !heroSection) return;
-    cornerLogo.classList.remove('hidden');
+    const heroBottom = heroSection.offsetHeight - 80;
+    cornerLogo.classList.toggle('hidden', window.scrollY > heroBottom);
   }
 
   window.addEventListener('scroll', updateCornerLogo, { passive: true });
